@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Text, View} from 'react-native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignUp.styles';
 import {Button, Input} from 'native-base';
 import {Controller, useForm} from 'react-hook-form';
+import PhoneInput from 'react-native-phone-input';
 
 const SignUpScreen = () => {
   const {
@@ -19,6 +20,16 @@ const SignUpScreen = () => {
     },
   });
 
+  const validatePhoneNumber = (phoneNumber: string) => {
+    const phoneRegex = /^\8\d{10}$/;
+    if (!phoneNumber) {
+      return 'Phone number cannot be empty';
+    } else if (!phoneRegex.test(phoneNumber)) {
+      return 'Phone number must start with 8 and have ten digits';
+    }
+    return true;
+  };
+
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>
@@ -30,17 +41,25 @@ const SignUpScreen = () => {
           <Controller
             control={control}
             name={'mobile'}
-            rules={{required: 'This field is required'}}
+            rules={{
+              required: 'This field is required',
+              validate: validatePhoneNumber,
+            }}
             render={({field: {onChange, value}}) => (
               <View>
                 <Input
-                  type={'text'}
+                  keyboardType={'numeric'}
                   size={'lg'}
-                  onChange={onChange}
+                  onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your mobile number'}
                   style={{flex: 1}}
                 />
+                {errors.mobile && (
+                  <Text style={{color: 'tomato'}}>
+                    {errors.mobile?.message}
+                  </Text>
+                )}
               </View>
             )}
           />

@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   SignUpHeading: {
+    color: theme.colors.brand[900],
     fontSize: 26,
     fontWeight: 'bold',
   },
