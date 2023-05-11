@@ -6,9 +6,20 @@ export const styles = StyleSheet.create({
     height: '100%',
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: '#fff',
   },
   EnterHeading: {
     fontSize: 18,
     color: '#000',
+  },
+  ButtonGroup: {
+    display: 'flex',
+    gap: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  Button: {
+    width: '40%',
   },
 });
