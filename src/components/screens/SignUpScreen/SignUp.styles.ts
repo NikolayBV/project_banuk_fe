@@ -24,4 +24,8 @@ export const styles = StyleSheet.create({
     display: 'flex',
     gap: 5,
   },
+  SubmitButton: {
+    width: '50%',
+    backgroundColor: theme.colors.brand[900],
+  },
 });

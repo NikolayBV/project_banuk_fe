@@ -1,12 +1,21 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignUp.styles';
 import {Button, Input} from 'native-base';
 import {Controller, useForm} from 'react-hook-form';
-import PhoneInput from 'react-native-phone-input';
+import {IUser} from '../../../utils/types';
+import {
+  validateNickname,
+  validatePassword,
+  validatePhoneNumber,
+} from '../../../utils/helpers';
+import {useAppDispatch, useAppSelector} from '../../../store/hooks';
+import {setUser} from '../../../store/users/userSlice';
 
 const SignUpScreen = () => {
+  const dispatch = useAppDispatch();
+  const store = useAppSelector(state => state.users);
   const {
     control,
     handleSubmit,
@@ -20,14 +29,9 @@ const SignUpScreen = () => {
     },
   });
 
-  const validatePhoneNumber = (phoneNumber: string) => {
-    const phoneRegex = /^\8\d{10}$/;
-    if (!phoneNumber) {
-      return 'Phone number cannot be empty';
-    } else if (!phoneRegex.test(phoneNumber)) {
-      return 'Phone number must start with 8 and have ten digits';
-    }
-    return true;
+  const onSubmit = (data: IUser) => {
+    dispatch(setUser(data));
+    console.log(store);
   };
 
   return (
@@ -69,17 +73,33 @@ const SignUpScreen = () => {
           <Controller
             control={control}
             name={'nickName'}
-            rules={{required: 'This field is required'}}
+            rules={{
+              required: 'This field is required',
+              minLength: {
+                value: 3,
+                message: 'Username length must be between 3 and 20 characters',
+              },
+              maxLength: {
+                value: 20,
+                message: 'Username length must be between 3 and 20 characters',
+              },
+              validate: validateNickname,
+            }}
             render={({field: {onChange, value}}) => (
               <View>
                 <Input
                   type={'text'}
                   size={'lg'}
-                  onChange={onChange}
+                  onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your nickname'}
                   style={{flex: 1}}
                 />
+                {errors.nickName && (
+                  <Text style={{color: 'tomato'}}>
+                    {errors.nickName?.message}
+                  </Text>
+                )}
               </View>
             )}
           />
@@ -89,23 +109,37 @@ const SignUpScreen = () => {
           <Controller
             control={control}
             name={'password'}
-            rules={{required: 'This field is required'}}
+            rules={{
+              required: 'This field is required',
+              minLength: {
+                value: 8,
+                message: 'Password must contain at least 8 characters!',
+              },
+              validate: validatePassword,
+            }}
             render={({field: {onChange, value}}) => (
               <View>
                 <Input
                   type={'text'}
                   size={'lg'}
-                  onChange={onChange}
+                  onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your password'}
                   style={{flex: 1}}
                 />
+                {errors.password && (
+                  <Text style={{color: 'tomato'}}>
+                    {errors.password?.message}
+                  </Text>
+                )}
               </View>
             )}
           />
         </View>
         <View />
-        <Button>Sign Up</Button>
+        <Button style={styles.SubmitButton} onPress={handleSubmit(onSubmit)}>
+          Sign Up
+        </Button>
       </View>
     </MainLayout>
   );
