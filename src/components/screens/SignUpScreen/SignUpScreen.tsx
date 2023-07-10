@@ -11,11 +11,11 @@ import {
   validatePhoneNumber,
 } from '../../../utils/helpers';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {setUser} from '../../../store/users/userSlice';
+import {createUser} from '../../../store/user/user.actions';
 
 const SignUpScreen = () => {
   const dispatch = useAppDispatch();
-  const store = useAppSelector(state => state.users);
+  const store = useAppSelector(state => state.user.currentUser);
   const {
     control,
     handleSubmit,
@@ -30,8 +30,8 @@ const SignUpScreen = () => {
   });
 
   const onSubmit = (data: IUser) => {
-    dispatch(setUser(data));
-    console.log(store);
+    console.log(data);
+    dispatch(createUser(data));
   };
 
   return (
