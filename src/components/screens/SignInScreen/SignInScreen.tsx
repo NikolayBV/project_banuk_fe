@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
-import MainLayout from '../../layouts/MainLayouts';
-import {styles} from './SignUp.styles';
-import {Button, Input} from 'native-base';
 import {Controller, useForm} from 'react-hook-form';
-import {IUser} from '../../../utils/types';
-import {
-  validateNickname,
-  validatePassword,
-  validatePhoneNumber,
-} from '../../../utils/helpers';
-import {useAppDispatch} from '../../../store/hooks';
-import {createUser} from '../../../store/user/user.actions';
+import {validatePassword, validatePhoneNumber} from '../../../utils/helpers';
+import {Button, Input} from 'native-base';
+import MainLayout from '../../layouts/MainLayouts';
+import {styles} from './SignInScreen.styles';
+import {useAppDispatch, useAppSelector} from '../../../store/hooks';
+import {LoginUser} from '../../../utils/types';
+import {login} from '../../../store/auth/auth.actions';
 import {NavigationProp} from '@react-navigation/native';
+import {authSelectors} from '../../../store/auth/auth.selectors';
+import {currentUserSelector} from '../../../store/user/user.selectors';
 
-const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
+const SignInScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useAppDispatch();
+  const auth = useAppSelector(authSelectors);
+  const user = useAppSelector(currentUserSelector);
   const {
     control,
     handleSubmit,
@@ -24,19 +24,24 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
     mode: 'onChange',
     defaultValues: {
       mobile: '',
-      nickName: '',
       password: '',
     },
   });
 
-  const onSubmit = (data: IUser) => {
-    dispatch(createUser(data)).then(() => navigation.navigate('Enter'));
-  };
+  useEffect(() => {
+    if (auth) {
+      navigation.navigate('MainScreen');
+    }
+  }, [auth, navigation]);
 
+  const onSubmit = (data: LoginUser) => {
+    dispatch(login(data));
+  };
+  console.log(user);
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>
-        <Text style={styles.SignUpHeading}>Sign Up</Text>
+        <Text style={styles.SignUpHeading}>Sign In</Text>
       </View>
       <View style={styles.InputContainer}>
         <View style={styles.InputWrapper}>
@@ -61,42 +66,6 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
                 {errors.mobile && (
                   <Text style={{color: 'tomato'}}>
                     {errors.mobile?.message}
-                  </Text>
-                )}
-              </View>
-            )}
-          />
-        </View>
-        <View style={styles.InputWrapper}>
-          <Text>Enter your nickname</Text>
-          <Controller
-            control={control}
-            name={'nickName'}
-            rules={{
-              required: 'This field is required',
-              minLength: {
-                value: 3,
-                message: 'Username length must be between 3 and 20 characters',
-              },
-              maxLength: {
-                value: 20,
-                message: 'Username length must be between 3 and 20 characters',
-              },
-              validate: validateNickname,
-            }}
-            render={({field: {onChange, value}}) => (
-              <View>
-                <Input
-                  type={'text'}
-                  size={'lg'}
-                  onChangeText={onChange}
-                  value={value}
-                  placeholder={'Enter your nickname'}
-                  style={{flex: 1}}
-                />
-                {errors.nickName && (
-                  <Text style={{color: 'tomato'}}>
-                    {errors.nickName?.message}
                   </Text>
                 )}
               </View>
@@ -137,11 +106,11 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
         </View>
         <View />
         <Button style={styles.SubmitButton} onPress={handleSubmit(onSubmit)}>
-          Sign Up
+          Sign In
         </Button>
       </View>
     </MainLayout>
   );
 };
 
-export default SignUpScreen;
+export default SignInScreen;

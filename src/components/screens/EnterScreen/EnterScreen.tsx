@@ -15,7 +15,11 @@ const EnterScreen = ({navigation}: EnterScreenProps) => {
       <View style={styles.EnterScreenWrapper}>
         <Text style={styles.EnterHeading}>Welcome to my messenger!</Text>
         <Box style={styles.ButtonGroup}>
-          <Button style={styles.Button} size="lg" variant="solid">
+          <Button
+            style={styles.Button}
+            size="lg"
+            variant="solid"
+            onPress={() => navigation.navigate('SignIn')}>
             Login
           </Button>
           <Button

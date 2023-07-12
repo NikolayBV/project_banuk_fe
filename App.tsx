@@ -8,6 +8,8 @@ import SignUpScreen from './src/components/screens/SignUpScreen';
 import {Provider} from 'react-redux';
 import {store} from './src/store';
 import Toast from 'react-native-toast-message';
+import SignInScreen from './src/components/screens/SignInScreen';
+import MainScreen from './src/components/screens/MainScreen';
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -21,6 +23,8 @@ function App() {
             screenOptions={{headerShown: false}}>
             <Stack.Screen name="Enter" component={EnterScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="SignIn" component={SignInScreen} />
+            <Stack.Screen name="MainScreen" component={MainScreen} />
           </Stack.Navigator>
           <Toast />
         </NativeBaseProvider>

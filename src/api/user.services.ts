@@ -6,12 +6,12 @@ class UserServices {
 
   constructor() {
     this.api = axios.create({
-      baseURL: 'http://183.89.55.210:3001',
+      baseURL: 'http://192.168.110.170:3001',
     });
   }
 
   createUser = async (user: IUser) => {
-    const {data} = await this.api.post('api/user', {user});
+    const {data} = await this.api.post('api/user', user);
     return data;
   };
 }
