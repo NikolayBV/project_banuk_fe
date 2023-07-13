@@ -15,7 +15,12 @@ const initialState: AuthSliceInitialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth: state => {
+      state.isAuth = false;
+      state.isLoading = IFetchingStatuses.success;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(login.fulfilled, state => {
       state.isAuth = true;
@@ -32,4 +37,5 @@ const authSlice = createSlice({
   },
 });
 
+export const {setAuth} = authSlice.actions;
 export default authSlice.reducer;

@@ -37,7 +37,7 @@ const SignInScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
   const onSubmit = (data: LoginUser) => {
     dispatch(login(data));
   };
-  console.log(user);
+  console.log(auth);
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>
