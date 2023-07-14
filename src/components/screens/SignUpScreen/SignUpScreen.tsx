@@ -2,7 +2,6 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignUp.styles';
-import {Button, Input} from 'native-base';
 import {Controller, useForm} from 'react-hook-form';
 import {IUser} from '../../../utils/types';
 import {
@@ -13,6 +12,7 @@ import {
 import {useAppDispatch} from '../../../store/hooks';
 import {createUser} from '../../../store/user/user.actions';
 import {NavigationProp} from '@react-navigation/native';
+import {Button, TextInput} from 'react-native-paper';
 
 const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useAppDispatch();
@@ -50,9 +50,8 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <Input
+                <TextInput
                   keyboardType={'numeric'}
-                  size={'lg'}
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your mobile number'}
@@ -86,9 +85,7 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <Input
-                  type={'text'}
-                  size={'lg'}
+                <TextInput
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your nickname'}
@@ -118,9 +115,7 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <Input
-                  type={'text'}
-                  size={'lg'}
+                <TextInput
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your password'}
@@ -136,7 +131,10 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
           />
         </View>
         <View />
-        <Button style={styles.SubmitButton} onPress={handleSubmit(onSubmit)}>
+        <Button
+          mode={'contained'}
+          style={styles.SubmitButton}
+          onPress={handleSubmit(onSubmit)}>
           Sign Up
         </Button>
       </View>

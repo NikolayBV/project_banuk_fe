@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   SignUpHeading: {
-    color: theme.colors.brand[900],
+    color: theme.colors.onPrimary,
     fontSize: 26,
     fontWeight: 'bold',
   },
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   SubmitButton: {
+    backgroundColor: theme.colors.primaryContainer,
     width: '50%',
-    backgroundColor: theme.colors.brand[900],
   },
 });

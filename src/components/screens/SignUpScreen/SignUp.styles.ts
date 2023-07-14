@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   SignUpHeading: {
-    color: theme.colors.brand[900],
+    color: theme.colors.primary,
     fontSize: 26,
     fontWeight: 'bold',
   },
@@ -26,6 +26,6 @@ export const styles = StyleSheet.create({
   },
   SubmitButton: {
     width: '50%',
-    backgroundColor: theme.colors.brand[900],
+    backgroundColor: theme.colors.primaryContainer,
   },
 });

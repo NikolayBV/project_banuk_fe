@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {useContacts} from '../../../utils/hooks/useContacts';
+import MainLayout from '../../layouts/MainLayouts';
 
 const MainScreen = () => {
   const contacts = useContacts();
@@ -13,9 +14,11 @@ const MainScreen = () => {
     }),
   );
   return (
-    <View>
-      <Text>MainScreen!</Text>
-    </View>
+    <MainLayout>
+      <View>
+        <Text>MainScreen!</Text>
+      </View>
+    </MainLayout>
   );
 };
 

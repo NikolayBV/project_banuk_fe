@@ -4,7 +4,6 @@ import theme from '../../../../theme';
 export const styles = StyleSheet.create({
   MainLayoutWrapper: {
     flex: 1,
-    backgroundColor: theme.colors.brand[700],
-    padding: 10,
+    backgroundColor: theme.colors.primary,
   },
 });

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import theme from '../../../../theme';
 
 export const styles = StyleSheet.create({
   EnterScreenWrapper: {
@@ -7,7 +8,6 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
   },
   EnterHeading: {
     fontSize: 18,
@@ -21,5 +21,6 @@ export const styles = StyleSheet.create({
   },
   Button: {
     width: '40%',
+    backgroundColor: theme.colors.primaryContainer,
   },
 });
