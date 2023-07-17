@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignUp.styles';
 import {Controller, useForm} from 'react-hook-form';
-import {IUser} from '../../../utils/types';
+import {IUser, RootNavigationProp} from '../../../utils/types';
 import {
   validateNickname,
   validatePassword,
@@ -11,11 +11,12 @@ import {
 } from '../../../utils/helpers';
 import {useAppDispatch} from '../../../store/hooks';
 import {createUser} from '../../../store/user/user.actions';
-import {NavigationProp} from '@react-navigation/native';
 import {Button, TextInput} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
-const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
+const SignUpScreen = () => {
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<RootNavigationProp>();
   const {
     control,
     handleSubmit,
@@ -30,7 +31,7 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
   });
 
   const onSubmit = (data: IUser) => {
-    dispatch(createUser(data)).then(() => navigation.navigate('Enter'));
+    dispatch(createUser(data)).then(() => navigation.navigate('EnterScreen'));
   };
 
   return (

@@ -1,26 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './EnterScreen.styles';
-import {NavigationProp} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import MainLayout from '../../layouts/MainLayouts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Button} from 'react-native-paper';
+import {useAuth} from '../../../utils/hooks/useAuth';
+import {RootNavigationProp} from '../../../utils/types';
 
-interface EnterScreenProps {
-  navigation: NavigationProp<any>;
-}
+const EnterScreen = () => {
+  useAuth();
 
-const EnterScreen = ({navigation}: EnterScreenProps) => {
-  useEffect(() => {
-    const getToken = async () => {
-      return await AsyncStorage.getItem('access_token');
-    };
-    getToken().then(res => {
-      if (res) {
-        navigation.navigate('MainScreen');
-      }
-    });
-  }, [navigation]);
+  const navigation = useNavigation<RootNavigationProp>();
 
   return (
     <MainLayout>
@@ -30,13 +20,13 @@ const EnterScreen = ({navigation}: EnterScreenProps) => {
           <Button
             style={styles.Button}
             mode={'contained'}
-            onPress={() => navigation.navigate('SignIn')}>
+            onPress={() => navigation.navigate('SignInScreen')}>
             Login
           </Button>
           <Button
             style={styles.Button}
             mode={'contained'}
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => navigation.navigate('SignUpScreen')}>
             Sign Up
           </Button>
         </View>

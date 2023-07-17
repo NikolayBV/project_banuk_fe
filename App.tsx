@@ -11,10 +11,18 @@ import Toast from 'react-native-toast-message';
 import SignInScreen from './src/components/screens/SignInScreen';
 import MainScreen from './src/components/screens/MainScreen';
 import {PersistGate} from 'redux-persist/integration/react';
+import {createStackNavigator} from '@react-navigation/stack';
+
+export type RootStackParamList = {
+  EnterScreen: undefined;
+  SignUpScreen: undefined;
+  SignInScreen: undefined;
+  MainScreen: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App() {
-  const Stack = createNativeStackNavigator();
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistore}>
@@ -23,9 +31,9 @@ function App() {
             <Stack.Navigator
               initialRouteName={'EnterScreen'}
               screenOptions={{headerShown: false}}>
-              <Stack.Screen name="Enter" component={EnterScreen} />
-              <Stack.Screen name="SignUp" component={SignUpScreen} />
-              <Stack.Screen name="SignIn" component={SignInScreen} />
+              <Stack.Screen name="EnterScreen" component={EnterScreen} />
+              <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+              <Stack.Screen name="SignInScreen" component={SignInScreen} />
               <Stack.Screen name="MainScreen" component={MainScreen} />
             </Stack.Navigator>
             <Toast />

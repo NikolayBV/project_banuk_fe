@@ -37,5 +37,11 @@ export const useContacts = () => {
     getContacts();
   }, []);
 
-  return useMemo(() => contacts, [contacts]);
+  const formatContacts = contacts.map(contact => {
+    return {
+      name: contact.displayName,
+      numbers: contact.phoneNumbers.map(number => number.number),
+    };
+  });
+  return useMemo(() => formatContacts, [formatContacts]);
 };

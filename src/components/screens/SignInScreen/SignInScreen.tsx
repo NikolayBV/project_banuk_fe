@@ -1,20 +1,20 @@
-import React, {forwardRef, useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
 import {validatePassword, validatePhoneNumber} from '../../../utils/helpers';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignInScreen.styles';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {LoginUser} from '../../../utils/types';
+import {LoginUser, RootNavigationProp} from '../../../utils/types';
 import {login} from '../../../store/auth/auth.actions';
-import {NavigationProp, useFocusEffect} from '@react-navigation/native';
-import {authSelectors} from '../../../store/auth/auth.selectors';
-import {currentUserSelector} from '../../../store/user/user.selectors';
 import {Button, TextInput} from 'react-native-paper';
+import {authSelectors} from '../../../store/auth/auth.selectors';
+import {useNavigation} from '@react-navigation/native';
 
-const SignInScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
+const SignInScreen = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(currentUserSelector);
+  const auth = useAppSelector(authSelectors);
+  const navigation = useNavigation<RootNavigationProp>();
   const {
     control,
     handleSubmit,
@@ -26,6 +26,10 @@ const SignInScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
       password: '',
     },
   });
+
+  useEffect(() => {
+    navigation.navigate('MainScreen');
+  }, [auth, navigation]);
 
   const onSubmit = (data: LoginUser) => {
     dispatch(login(data));

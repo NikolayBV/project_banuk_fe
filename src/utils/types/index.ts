@@ -1,3 +1,6 @@
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../../../App';
+
 export interface IUser {
   mobile: string;
   nickName: string;
@@ -14,3 +17,8 @@ export enum IFetchingStatuses {
   success = 'success',
   error = 'error',
 }
+
+export type RootNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'EnterScreen'
+>;
