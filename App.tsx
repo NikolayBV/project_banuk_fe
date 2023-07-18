@@ -12,12 +12,15 @@ import SignInScreen from './src/components/screens/SignInScreen';
 import MainScreen from './src/components/screens/MainScreen';
 import {PersistGate} from 'redux-persist/integration/react';
 import {createStackNavigator} from '@react-navigation/stack';
+import ContactScreen from './src/components/screens/ContactScreen';
+import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
   MainScreen: undefined;
+  ContactScreen: ContactScreenProps;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -35,6 +38,7 @@ function App() {
               <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
               <Stack.Screen name="SignInScreen" component={SignInScreen} />
               <Stack.Screen name="MainScreen" component={MainScreen} />
+              <Stack.Screen name="ContactScreen" component={ContactScreen} />
             </Stack.Navigator>
             <Toast />
           </PaperProvider>

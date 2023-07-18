@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     gap: 5,
   },
   SubmitButton: {
-    backgroundColor: theme.colors.primaryContainer,
+    backgroundColor: theme.colors.secondary,
     width: '50%',
   },
 });

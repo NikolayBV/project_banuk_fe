@@ -22,3 +22,11 @@ export const validatePassword = (password: string): string | boolean => {
     ? 'Password must contain at least one number, one uppercase letter, one lowercase letter and one special character!'
     : true;
 };
+
+export const getTwoLettersFromName = (name: string) => {
+  return name
+    .split(' ')
+    .map(str => str[0].toUpperCase())
+    .slice(0, 2)
+    .join('');
+};

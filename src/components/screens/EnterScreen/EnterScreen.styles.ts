@@ -21,6 +21,6 @@ export const styles = StyleSheet.create({
   },
   Button: {
     width: '40%',
-    backgroundColor: theme.colors.primaryContainer,
+    backgroundColor: theme.colors.secondary,
   },
 });
