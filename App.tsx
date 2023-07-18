@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import EnterScreen from './src/components/screens/EnterScreen';
-import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {PaperProvider} from 'react-native-paper';
 import theme from './theme';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUpScreen from './src/components/screens/SignUpScreen';
 import {Provider} from 'react-redux';
 import {persistore, store} from './src/store';
@@ -38,7 +37,20 @@ function App() {
               <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
               <Stack.Screen name="SignInScreen" component={SignInScreen} />
               <Stack.Screen name="MainScreen" component={MainScreen} />
-              <Stack.Screen name="ContactScreen" component={ContactScreen} />
+              <Stack.Screen
+                name="ContactScreen"
+                component={ContactScreen}
+                options={({route}) => ({
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: '#DEB887',
+                  },
+                  title: route.params.name,
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                  },
+                })}
+              />
             </Stack.Navigator>
             <Toast />
           </PaperProvider>
