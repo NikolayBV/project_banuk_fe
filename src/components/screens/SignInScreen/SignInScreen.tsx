@@ -7,9 +7,11 @@ import {styles} from './SignInScreen.styles';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
 import {LoginUser, RootNavigationProp} from '../../../utils/types';
 import {login} from '../../../store/auth/auth.actions';
-import {Button, TextInput} from 'react-native-paper';
 import {authSelectors} from '../../../store/auth/auth.selectors';
 import {useNavigation} from '@react-navigation/native';
+import {Button, Input} from 'native-base';
+import {setUnAuth} from '../../../store/auth/auth.slice';
+import {setUser} from '../../../store/user/user.slice';
 
 const SignInScreen = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +28,15 @@ const SignInScreen = () => {
       password: '',
     },
   });
+  useEffect(() => {
+    dispatch(setUnAuth());
+    dispatch(setUser(null));
+  }, []);
 
   useEffect(() => {
-    navigation.navigate('MainScreen');
+    if (auth) {
+      navigation.navigate('MainScreen');
+    }
   }, [auth, navigation]);
 
   const onSubmit = (data: LoginUser) => {
@@ -51,8 +59,8 @@ const SignInScreen = () => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <TextInput
-                  mode={'outlined'}
+                <Input
+                  variant={'outlined'}
                   keyboardType={'numeric'}
                   onChangeText={onChange}
                   value={value}
@@ -81,12 +89,11 @@ const SignInScreen = () => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <TextInput
+                <Input
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your password'}
-                  mode="outlined"
-                  label="Password"
+                  variant="outlined"
                 />
                 {errors.password && (
                   <Text style={{color: 'tomato'}}>
@@ -99,7 +106,7 @@ const SignInScreen = () => {
         </View>
         <View />
         <Button
-          mode={'contained'}
+          variant={'contained'}
           style={styles.SubmitButton}
           onPress={handleSubmit(onSubmit)}>
           Sign In

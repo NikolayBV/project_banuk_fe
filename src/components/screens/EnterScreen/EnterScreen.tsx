@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './EnterScreen.styles';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import MainLayout from '../../layouts/MainLayouts';
-import {Button} from 'react-native-paper';
 import {useAuth} from '../../../utils/hooks/useAuth';
 import {RootNavigationProp} from '../../../utils/types';
+import {Button} from 'native-base';
 
 const EnterScreen = () => {
   useAuth();
@@ -19,13 +19,13 @@ const EnterScreen = () => {
         <View style={styles.ButtonGroup}>
           <Button
             style={styles.Button}
-            mode={'contained'}
+            variant={'contained'}
             onPress={() => navigation.navigate('SignInScreen')}>
             Login
           </Button>
           <Button
             style={styles.Button}
-            mode={'contained'}
+            variant={'contained'}
             onPress={() => navigation.navigate('SignUpScreen')}>
             Sign Up
           </Button>

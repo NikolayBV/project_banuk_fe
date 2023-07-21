@@ -1,4 +1,4 @@
-import {IFetchingStatuses, IUser} from '../../utils/types';
+import {IFetchingStatuses} from '../../utils/types';
 import {createSlice} from '@reduxjs/toolkit';
 import {login} from './auth.actions';
 
@@ -16,7 +16,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth: state => {
+    setUnAuth: state => {
       state.isAuth = false;
       state.isLoading = IFetchingStatuses.success;
     },
@@ -37,5 +37,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {setAuth} = authSlice.actions;
+export const {setUnAuth} = authSlice.actions;
 export default authSlice.reducer;

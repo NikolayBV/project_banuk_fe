@@ -11,8 +11,8 @@ import {
 } from '../../../utils/helpers';
 import {useAppDispatch} from '../../../store/hooks';
 import {createUser} from '../../../store/user/user.actions';
-import {Button, TextInput} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {Button, Input} from 'native-base';
 
 const SignUpScreen = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const SignUpScreen = () => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <TextInput
+                <Input
                   keyboardType={'numeric'}
                   onChangeText={onChange}
                   value={value}
@@ -86,7 +86,7 @@ const SignUpScreen = () => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <TextInput
+                <Input
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your nickname'}
@@ -116,7 +116,7 @@ const SignUpScreen = () => {
             }}
             render={({field: {onChange, value}}) => (
               <View>
-                <TextInput
+                <Input
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your password'}
@@ -133,7 +133,7 @@ const SignUpScreen = () => {
         </View>
         <View />
         <Button
-          mode={'contained'}
+          variant={'contained'}
           style={styles.SubmitButton}
           onPress={handleSubmit(onSubmit)}>
           Sign Up

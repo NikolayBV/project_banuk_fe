@@ -7,7 +7,8 @@ export const useAuth = () => {
   const navigation = useNavigation<RootNavigationProp>();
   useEffect(() => {
     const getToken = async () => {
-      return await AsyncStorage.getItem('access_token');
+      const res = await AsyncStorage.getItem('access_token');
+      return res;
     };
     getToken().then(res => {
       if (res) {

@@ -1,8 +1,7 @@
 import React from 'react';
 import EnterScreen from './src/components/screens/EnterScreen';
 import {NavigationContainer} from '@react-navigation/native';
-import {PaperProvider} from 'react-native-paper';
-import theme from './theme';
+import theme from './src/styles/theme';
 import SignUpScreen from './src/components/screens/SignUpScreen';
 import {Provider} from 'react-redux';
 import {persistore, store} from './src/store';
@@ -13,6 +12,7 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {createStackNavigator} from '@react-navigation/stack';
 import ContactScreen from './src/components/screens/ContactScreen';
 import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
+import {NativeBaseProvider} from 'native-base';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
@@ -29,14 +29,18 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistore}>
         <NavigationContainer>
-          <PaperProvider theme={theme}>
+          <NativeBaseProvider theme={theme}>
             <Stack.Navigator
               initialRouteName={'EnterScreen'}
               screenOptions={{headerShown: false}}>
               <Stack.Screen name="EnterScreen" component={EnterScreen} />
               <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
               <Stack.Screen name="SignInScreen" component={SignInScreen} />
-              <Stack.Screen name="MainScreen" component={MainScreen} />
+              <Stack.Screen
+                name="MainScreen"
+                component={MainScreen}
+                options={{gestureEnabled: false}}
+              />
               <Stack.Screen
                 name="ContactScreen"
                 component={ContactScreen}
@@ -53,7 +57,7 @@ function App() {
               />
             </Stack.Navigator>
             <Toast />
-          </PaperProvider>
+          </NativeBaseProvider>
         </NavigationContainer>
       </PersistGate>
     </Provider>

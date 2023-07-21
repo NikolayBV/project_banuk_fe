@@ -1,10 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import MainLayout from '../../layouts/MainLayouts';
-import {TextInput} from 'react-native-paper';
 import {styles} from './ContactScreen.styles';
 import {Controller, useForm} from 'react-hook-form';
+import {Box, Input, Pressable} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useAppSelector} from '../../../store/hooks';
+import {currentUserSelector} from '../../../store/user/user.selectors';
 
 export interface ContactScreenProps {
   name: string;
@@ -14,6 +17,7 @@ export interface ContactScreenProps {
 const ContactScreen = () => {
   const route = useRoute();
   const {name, number} = route.params as ContactScreenProps;
+  const user = useAppSelector(currentUserSelector);
 
   const {control, handleSubmit} = useForm({
     mode: 'onChange',
@@ -23,36 +27,38 @@ const ContactScreen = () => {
   });
 
   const onSend = (data: {message: string}) => {
-    console.log(data);
+    console.log(data, user);
   };
 
   return (
     <MainLayout>
       <View style={styles.contactCardContainer}>
-        <Text>{name}</Text>
-        <View style={styles.inputWrapper}>
-          <Controller
-            control={control}
-            name={'message'}
-            render={({field: {onChange, value}}) => (
-              <View>
-                <TextInput
-                  mode={'outlined'}
-                  keyboardType={'twitter'}
+        <Box style={styles.inputContainer}>
+          <View style={styles.inputWrapper}>
+            <Controller
+              control={control}
+              name={'message'}
+              render={({field: {onChange, value}}) => (
+                <Input
+                  variant={'outline'}
+                  isFullWidth
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your message'}
-                  right={
-                    <TextInput.Icon
-                      onPress={handleSubmit(onSend)}
-                      icon={'send'}
-                    />
+                  InputRightElement={
+                    <Pressable onPress={handleSubmit(onSend)}>
+                      <Icon
+                        name={'send'}
+                        size={30}
+                        style={{paddingRight: 10}}
+                      />
+                    </Pressable>
                   }
                 />
-              </View>
-            )}
-          />
-        </View>
+              )}
+            />
+          </View>
+        </Box>
       </View>
     </MainLayout>
   );

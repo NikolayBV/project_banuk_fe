@@ -1,10 +1,18 @@
 import {TouchableOpacity} from 'react-native';
-import {Avatar, Card} from 'react-native-paper';
-import theme from '../../../../theme';
+import theme from '../../../styles/theme';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigationProp} from '../../../utils/types';
 import {getTwoLettersFromName} from '../../../utils/helpers';
+import {
+  Avatar,
+  Box,
+  HStack,
+  Pressable,
+  Spacer,
+  VStack,
+  Text,
+} from 'native-base';
 
 interface ContactCardProps {
   name: string;
@@ -20,20 +28,22 @@ const ContactCard = ({name, number}: ContactCardProps) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <Card.Title
-        title={name}
-        subtitle={number}
-        left={props => (
-          <Avatar.Text
-            {...props}
-            color={theme.colors.background}
-            style={{backgroundColor: theme.colors.secondary}}
-            label={label}
-          />
-        )}
-      />
-    </TouchableOpacity>
+    <Box>
+      <Pressable onPress={handlePress}>
+        <Box pl="4" pr="5" py="2">
+          <HStack alignItems="center" space={3}>
+            <Avatar size="48px">{label}</Avatar>
+            <VStack>
+              <Text color="coolGray.800" bold>
+                {name}
+              </Text>
+              <Text color="coolGray.600">{number}</Text>
+            </VStack>
+            <Spacer />
+          </HStack>
+        </Box>
+      </Pressable>
+    </Box>
   );
 };
 

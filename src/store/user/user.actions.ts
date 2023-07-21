@@ -13,9 +13,23 @@ export const createUser = createAsyncThunk(
         text1: 'success',
       });
       return newUser;
-    } catch (e) {
-      console.log(e);
-      rejectWithValue(e);
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message || 'Что-то пошло не так';
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
+
+export const getUser = createAsyncThunk(
+  'GET_USER',
+  async (_, {rejectWithValue, dispatch}) => {
+    try {
+      return await UserServices.getUser();
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message || 'Что-то пошло не так';
+      return rejectWithValue(errorMessage);
     }
   },
 );
