@@ -11,6 +11,11 @@ class AuthServices {
     const {data} = await this.api.post('/auth/login', user);
     return data;
   };
+
+  verify = async (token: string) => {
+    const {data} = await this.api.post('/auth/verify', {token});
+    return data;
+  };
 }
 
 export default new AuthServices();

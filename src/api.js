@@ -20,31 +20,20 @@ instance.interceptors.request.use(
     return state;
   },
   error => {
-    console.log(error, 'error');
     return Promise.reject(error);
   },
 );
 
 instance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  async function (error) {
+  response => response,
+  async error => {
+    const originalRequest = error.config;
     if (error.response.data.message === 'Token expired') {
-      const refresh = await AsyncStorage.getItem('refresh_token');
-      const access = await AsyncStorage.getItem('access_token');
-      axios.defaults.headers = {
-        ...instance.defaults.headers,
-        common: {
-          ...instance.defaults.headers.common,
-          Authorization: `Bearer ${refresh}`,
-        },
-      };
-      axios
-        .post(
+      try {
+        const refresh = await AsyncStorage.getItem('refresh_token');
+        const res = await axios.post(
           baseURL + '/auth/token/refresh',
           {
-            access_token: access,
             refresh_token: refresh,
           },
           {
@@ -52,11 +41,21 @@ instance.interceptors.response.use(
               Authorization: `Bearer ${refresh}`,
             },
           },
-        )
-        .then(res => {
-          console.log(res);
-        });
+        );
+        const access_token = res.data.access_token;
+        const refresh_token = res.data.refresh_token;
+        const [at, rt] = await Promise.all([
+          AsyncStorage.setItem('access_token', access_token),
+          AsyncStorage.setItem('refresh_token', refresh_token),
+        ]);
+        originalRequest.headers.Authorization = `Bearer ${at}`;
+        return axios(originalRequest);
+      } catch (error) {
+        throw new Error('Unauthorized');
+      }
     }
+    return Promise.reject(error);
   },
 );
+
 export default instance;

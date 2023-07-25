@@ -23,7 +23,7 @@ export const createUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   'GET_USER',
-  async (_, {rejectWithValue, dispatch}) => {
+  async (_, {rejectWithValue}) => {
     try {
       return await UserServices.getUser();
     } catch (error: any) {

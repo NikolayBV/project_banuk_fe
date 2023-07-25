@@ -18,6 +18,10 @@ const authSlice = createSlice({
   reducers: {
     setUnAuth: state => {
       state.isAuth = false;
+      state.isLoading = IFetchingStatuses.error;
+    },
+    setAuth: state => {
+      state.isAuth = true;
       state.isLoading = IFetchingStatuses.success;
     },
   },
@@ -37,5 +41,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {setUnAuth} = authSlice.actions;
+export const {setUnAuth, setAuth} = authSlice.actions;
 export default authSlice.reducer;

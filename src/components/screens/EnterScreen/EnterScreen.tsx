@@ -8,8 +8,6 @@ import {RootNavigationProp} from '../../../utils/types';
 import {Button} from 'native-base';
 
 const EnterScreen = () => {
-  useAuth();
-
   const navigation = useNavigation<RootNavigationProp>();
 
   return (
