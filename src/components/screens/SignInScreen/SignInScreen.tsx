@@ -5,17 +5,26 @@ import {validatePassword, validatePhoneNumber} from '../../../utils/helpers';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './SignInScreen.styles';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {LoginUser, RootNavigationProp} from '../../../utils/types';
+import {
+  IFetchingStatuses,
+  LoginUser,
+  RootNavigationProp,
+} from '../../../utils/types';
 import {login} from '../../../store/auth/auth.actions';
-import {authSelectors} from '../../../store/auth/auth.selectors';
+import {
+  authSelectors,
+  loadingSelectors,
+} from '../../../store/auth/auth.selectors';
 import {useNavigation} from '@react-navigation/native';
 import {Button, Input} from 'native-base';
 import {setUnAuth} from '../../../store/auth/auth.slice';
 import {setUser} from '../../../store/user/user.slice';
+import LoadingSpinner from '../../common/LoadingSpinner/index';
 
 const SignInScreen = () => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelectors);
+  const loading = useAppSelector(loadingSelectors);
   const navigation = useNavigation<RootNavigationProp>();
   const {
     control,
@@ -28,10 +37,10 @@ const SignInScreen = () => {
       password: '',
     },
   });
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(setUnAuth());
     dispatch(setUser(null));
-  }, []);
+  }, [dispatch]);*/
 
   useEffect(() => {
     if (auth) {
@@ -42,12 +51,13 @@ const SignInScreen = () => {
   const onSubmit = (data: LoginUser) => {
     dispatch(login(data));
   };
-
+  console.log(auth);
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>
         <Text style={styles.SignUpHeading}>Sign In</Text>
       </View>
+      {loading === IFetchingStatuses.pending && <LoadingSpinner />}
       <View style={styles.InputContainer}>
         <View style={styles.InputWrapper}>
           <Controller

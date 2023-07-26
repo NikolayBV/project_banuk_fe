@@ -21,16 +21,16 @@ const MainScreen = () => {
     AsyncStorage.removeItem('refresh_token');
   }, []);*/
 
-  useEffect(() => {
-    const getToken = async () => {
-      const token = await AsyncStorage.getItem('access_token');
-      if (token) {
-        dispatch(verifyToken(token));
-      }
-    };
-
-    getToken().then(res => console.log(res));
-  }, []);
+  // useEffect(() => {
+  //   const getToken = async () => {
+  //     const token = await AsyncStorage.getItem('access_token');
+  //     if (token) {
+  //       dispatch(verifyToken(token));
+  //     }
+  //   };
+  //
+  //   getToken().then(res => console.log(res));
+  // }, []);
 
   return (
     <MainLayout>

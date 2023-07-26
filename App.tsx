@@ -11,6 +11,8 @@ import ContactScreen from './src/components/screens/ContactScreen';
 import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
 import {NativeBaseProvider} from 'native-base';
 import {useAuth} from './src/utils/hooks/useAuth';
+import {useAppSelector} from './src/store/hooks';
+import {authSelectors} from './src/store/auth/auth.selectors';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
@@ -86,7 +88,6 @@ const AuthNavigator = () => {
 
 function App() {
   const auth = useAuth();
-  console.log(auth);
   return (
     <NavigationContainer>
       <NativeBaseProvider theme={theme}>

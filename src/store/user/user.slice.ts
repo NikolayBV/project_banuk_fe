@@ -14,8 +14,9 @@ const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.currentUser = action.payload;
+    setUser: (state, {payload}) => {
+      console.log(payload);
+      state.currentUser = payload;
     },
     removeUser: state => {
       state.currentUser = null;
@@ -26,7 +27,10 @@ const userSlice = createSlice({
       state.currentUser = payload;
     });
     builder.addCase(getUser.fulfilled, (state, {payload}) => {
-      //state.currentUser = payload;
+      state.currentUser = payload;
+    });
+    builder.addCase(getUser.rejected, state => {
+      state.currentUser = null;
     });
   },
 });
