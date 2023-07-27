@@ -44,11 +44,11 @@ instance.interceptors.response.use(
         );
         const access_token = res.data.access_token;
         const refresh_token = res.data.refresh_token;
-        const [at, rt] = await Promise.all([
+        await Promise.all([
           AsyncStorage.setItem('access_token', access_token),
           AsyncStorage.setItem('refresh_token', refresh_token),
         ]);
-        originalRequest.headers.Authorization = `Bearer ${at}`;
+        originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
       } catch (error) {
         throw new Error('Unauthorized');
