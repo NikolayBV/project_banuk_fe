@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './EnterScreen.styles';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import MainLayout from '../../layouts/MainLayouts';
-import {useAuth} from '../../../utils/hooks/useAuth';
 import {RootNavigationProp} from '../../../utils/types';
 import {Button} from 'native-base';
 

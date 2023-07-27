@@ -8,7 +8,6 @@ import {authSelectors} from '../../store/auth/auth.selectors';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const auth = useAppSelector(authSelectors);
 
   useEffect(() => {
     const checkAuthorization = async () => {
@@ -34,5 +33,5 @@ export const useAuth = () => {
     };
 
     checkAuthorization();
-  }, [dispatch, auth]);
+  }, [dispatch]);
 };

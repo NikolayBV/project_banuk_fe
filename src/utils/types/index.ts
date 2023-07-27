@@ -2,6 +2,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../App';
 
 export interface IUser {
+  _id: string;
   mobile: string;
   nickName: string;
 }

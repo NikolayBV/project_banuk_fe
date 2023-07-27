@@ -22,9 +22,7 @@ const ContactScreen = () => {
   const user = useAppSelector(currentUserSelector);
 
   useEffect(() => {
-    dispatch(getUserByMobile(number)).then(res => {
-      console.log(res);
-    });
+    dispatch(getUserByMobile(number));
   }, []);
 
   const {control, handleSubmit} = useForm({

@@ -26,6 +26,6 @@ export const styles = StyleSheet.create({
   },
   SubmitButton: {
     width: '50%',
-    backgroundColor: theme.colors.primaryContainer,
+    backgroundColor: theme.colors.secondary,
   },
 });

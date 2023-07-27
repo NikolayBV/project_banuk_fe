@@ -1,13 +1,15 @@
 import {IUser} from '../../utils/types';
 import {createSlice} from '@reduxjs/toolkit';
-import {createUser, getUser} from './user.actions';
+import {createUser, getUser, getUserByMobile} from './user.actions';
 
 interface UserState {
   currentUser: IUser | null;
+  chatUser: IUser | null;
 }
 
 const initialState: UserState = {
   currentUser: null,
+  chatUser: null,
 };
 
 const userSlice = createSlice({
@@ -15,7 +17,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, {payload}) => {
-      console.log(payload);
       state.currentUser = payload;
     },
     removeUser: state => {
@@ -31,6 +32,9 @@ const userSlice = createSlice({
     });
     builder.addCase(getUser.rejected, state => {
       state.currentUser = null;
+    });
+    builder.addCase(getUserByMobile.fulfilled, (state, {payload}) => {
+      state.chatUser = payload;
     });
   },
 });

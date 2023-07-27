@@ -10,28 +10,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {verifyToken} from '../../../store/auth/auth.actions';
 import MainFooter from '../../common/MainFooter';
+import {RootStackParamList} from '../../../../App';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-const MainScreen = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
+
+const MainScreen = ({navigation}: Props) => {
   const contacts = useContacts();
-  const dispatch = useAppDispatch();
-
-  /*useEffect(() => {
-    dispatch(setUnAuth());
-    dispatch(removeUser());
-    AsyncStorage.removeItem('access_token');
-    AsyncStorage.removeItem('refresh_token');
-  }, []);*/
-
-  // useEffect(() => {
-  //   const getToken = async () => {
-  //     const token = await AsyncStorage.getItem('access_token');
-  //     if (token) {
-  //       dispatch(verifyToken(token));
-  //     }
-  //   };
-  //
-  //   getToken().then(res => console.log(res));
-  // }, []);
 
   return (
     <MainLayout>
@@ -44,7 +29,7 @@ const MainScreen = () => {
           />
         ))}
       </ScrollView>
-      <MainFooter />
+      <MainFooter navigation={navigation} />
     </MainLayout>
   );
 };

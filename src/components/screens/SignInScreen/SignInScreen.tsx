@@ -17,8 +17,6 @@ import {
 } from '../../../store/auth/auth.selectors';
 import {useNavigation} from '@react-navigation/native';
 import {Button, Input} from 'native-base';
-import {setUnAuth} from '../../../store/auth/auth.slice';
-import {setUser} from '../../../store/user/user.slice';
 import LoadingSpinner from '../../common/LoadingSpinner/index';
 
 const SignInScreen = () => {
@@ -37,10 +35,6 @@ const SignInScreen = () => {
       password: '',
     },
   });
-  /*useEffect(() => {
-    dispatch(setUnAuth());
-    dispatch(setUser(null));
-  }, [dispatch]);*/
 
   useEffect(() => {
     if (auth) {
@@ -49,9 +43,13 @@ const SignInScreen = () => {
   }, [auth, navigation]);
 
   const onSubmit = (data: LoginUser) => {
-    dispatch(login(data));
+    dispatch(login(data)).then(() => {
+      if (auth) {
+        navigation.navigate('MainScreen');
+      }
+    });
   };
-  console.log(auth);
+
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>
@@ -70,7 +68,6 @@ const SignInScreen = () => {
             render={({field: {onChange, value}}) => (
               <View>
                 <Input
-                  variant={'outlined'}
                   keyboardType={'numeric'}
                   onChangeText={onChange}
                   value={value}
@@ -103,7 +100,6 @@ const SignInScreen = () => {
                   onChangeText={onChange}
                   value={value}
                   placeholder={'Enter your password'}
-                  variant="outlined"
                 />
                 {errors.password && (
                   <Text style={{color: 'tomato'}}>

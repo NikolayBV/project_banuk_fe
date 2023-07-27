@@ -36,10 +36,16 @@ export const getUser = createAsyncThunk(
 
 export const getUserByMobile = createAsyncThunk(
   'GET_USER_BY_MOBILE',
-  async (mobile: Array<string>, {rejectWithValue, dispatch}) => {
+  async (mobile: Array<string>, {rejectWithValue}) => {
     try {
       return await UserServices.getUserByMobile(mobile);
     } catch (error: any) {
+      if (error?.response?.data?.message === 'User does not found!') {
+        Toast.show({
+          type: 'error',
+          text2: 'the user does not use this messenger',
+        });
+      }
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
       return rejectWithValue(errorMessage);
