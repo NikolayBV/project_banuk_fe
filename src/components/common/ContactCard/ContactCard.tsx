@@ -1,5 +1,3 @@
-import {TouchableOpacity} from 'react-native';
-import theme from '../../../styles/theme';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RootNavigationProp} from '../../../utils/types';

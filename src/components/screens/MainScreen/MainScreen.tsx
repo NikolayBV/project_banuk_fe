@@ -9,6 +9,7 @@ import {removeUser} from '../../../store/user/user.slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import {verifyToken} from '../../../store/auth/auth.actions';
+import MainFooter from '../../common/MainFooter';
 
 const MainScreen = () => {
   const contacts = useContacts();
@@ -43,6 +44,7 @@ const MainScreen = () => {
           />
         ))}
       </ScrollView>
+      <MainFooter />
     </MainLayout>
   );
 };

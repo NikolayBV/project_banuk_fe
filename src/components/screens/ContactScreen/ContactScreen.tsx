@@ -18,7 +18,7 @@ const ContactScreen = () => {
   const route = useRoute();
   const {name, number} = route.params as ContactScreenProps;
   const user = useAppSelector(currentUserSelector);
-
+  console.log(name, number);
   const {control, handleSubmit} = useForm({
     mode: 'onChange',
     defaultValues: {

@@ -87,7 +87,9 @@ const AuthNavigator = () => {
 };
 
 function App() {
-  const auth = useAuth();
+  const auth = useAppSelector(authSelectors);
+  useAuth();
+
   return (
     <NavigationContainer>
       <NativeBaseProvider theme={theme}>

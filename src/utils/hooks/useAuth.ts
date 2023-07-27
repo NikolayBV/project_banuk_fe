@@ -9,7 +9,6 @@ import {authSelectors} from '../../store/auth/auth.selectors';
 export const useAuth = () => {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(authSelectors);
-  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
     const checkAuthorization = async () => {
@@ -22,23 +21,18 @@ export const useAuth = () => {
             if (mobile && nickName) {
               dispatch(setUser({mobile, nickName}));
               dispatch(setAuth());
-              setAuthorized(true);
             } else {
               dispatch(setUnAuth());
               dispatch(removeUser());
-              setAuthorized(false);
             }
           }
         });
       } else {
         dispatch(setUnAuth());
         dispatch(removeUser());
-        setAuthorized(false);
       }
     };
 
     checkAuthorization();
   }, [dispatch, auth]);
-
-  return authorized;
 };

@@ -16,6 +16,11 @@ class UserServices {
     const {data} = await this.api.get('api/user');
     return data;
   };
+
+  getUserByMobile = async (mobiles: string[]) => {
+    const {data} = await this.api.post('api/user/mobile', mobiles);
+    return data;
+  };
 }
 
 export default new UserServices();

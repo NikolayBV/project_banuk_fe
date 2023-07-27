@@ -33,3 +33,16 @@ export const getUser = createAsyncThunk(
     }
   },
 );
+
+export const getUserByMobile = createAsyncThunk(
+  'GET_USER_BY_MOBILE',
+  async (mobile: Array<string>, {rejectWithValue, dispatch}) => {
+    try {
+      return await UserServices.getUserByMobile(mobile);
+    } catch (error: any) {
+      const errorMessage =
+        error?.response?.data?.message || 'Что-то пошло не так';
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
