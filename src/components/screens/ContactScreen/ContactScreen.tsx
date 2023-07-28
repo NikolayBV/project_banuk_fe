@@ -4,11 +4,18 @@ import {useRoute} from '@react-navigation/native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './ContactScreen.styles';
 import {Controller, useForm} from 'react-hook-form';
-import {Box, Input, Pressable} from 'native-base';
+import {Box, Input, Pressable, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {currentUserSelector} from '../../../store/user/user.selectors';
+import {
+  chatUserSelector,
+  currentUserSelector,
+} from '../../../store/user/user.selectors';
 import {getUserByMobile} from '../../../store/user/user.actions';
+import {IMessage} from '../../../utils/types';
+import {sendMessage} from '../../../store/messages/message.actions';
+import {currentUserMessagesSelector} from '../../../store/messages/messages.selectors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface ContactScreenProps {
   name: string;
@@ -19,7 +26,9 @@ const ContactScreen = () => {
   const route = useRoute();
   const dispatch = useAppDispatch();
   const {name, number} = route.params as ContactScreenProps;
-  const user = useAppSelector(currentUserSelector);
+  const currentUser = useAppSelector(currentUserSelector);
+  const chatUser = useAppSelector(chatUserSelector);
+  const messages = useAppSelector(currentUserMessagesSelector);
 
   useEffect(() => {
     dispatch(getUserByMobile(number));
@@ -31,14 +40,24 @@ const ContactScreen = () => {
       message: '',
     },
   });
-
   const onSend = (data: {message: string}) => {
-    console.log(data, user);
+    if (currentUser && chatUser) {
+      const createMessage: IMessage = {
+        from: currentUser._id,
+        to: chatUser._id,
+        text: data.message,
+        createdAt: new Date(),
+      };
+      dispatch(sendMessage(createMessage));
+    }
   };
 
   return (
     <MainLayout>
       <View style={styles.contactCardContainer}>
+        {messages.map((message, i) => {
+          return <Text key={i}>{message.text}</Text>;
+        })}
         <Box style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
             <Controller
@@ -50,7 +69,7 @@ const ContactScreen = () => {
                   isFullWidth
                   onChangeText={onChange}
                   value={value}
-                  placeholder={'Enter your message'}
+                  placeholder={'Enter your messages'}
                   InputRightElement={
                     <Pressable onPress={handleSubmit(onSend)}>
                       <Icon

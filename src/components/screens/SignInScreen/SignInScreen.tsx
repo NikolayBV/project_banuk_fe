@@ -49,7 +49,7 @@ const SignInScreen = () => {
       }
     });
   };
-
+  console.log(auth);
   return (
     <MainLayout>
       <View style={styles.SignUpWrapper}>

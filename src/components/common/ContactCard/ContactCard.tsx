@@ -35,7 +35,6 @@ const ContactCard = ({name, number}: ContactCardProps) => {
               <Text color="coolGray.800" bold>
                 {name}
               </Text>
-              <Text color="coolGray.600">{number}</Text>
             </VStack>
             <Spacer />
           </HStack>

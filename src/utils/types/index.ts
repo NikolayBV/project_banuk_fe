@@ -12,6 +12,13 @@ export interface LoginUser {
   password: string;
 }
 
+export interface IMessage {
+  from: string;
+  to: string;
+  text: string;
+  createdAt: Date;
+}
+
 export enum IFetchingStatuses {
   pending = 'pending',
   success = 'success',
