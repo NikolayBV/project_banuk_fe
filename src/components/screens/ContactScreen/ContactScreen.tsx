@@ -8,14 +8,20 @@ import {Box, Input, Pressable, Text} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
 import {
-  chatUserSelector,
-  currentUserSelector,
+  chatUserIdSelector,
+  currentUserIdSelector,
 } from '../../../store/user/user.selectors';
 import {getUserByMobile} from '../../../store/user/user.actions';
 import {IMessage} from '../../../utils/types';
-import {sendMessage} from '../../../store/messages/message.actions';
-import {currentUserMessagesSelector} from '../../../store/messages/messages.selectors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  getChatUserMessages,
+  sendMessage,
+} from '../../../store/messages/message.actions';
+import {
+  currentUserMessagesSelector,
+  isMessagesLoading,
+} from '../../../store/messages/messages.selectors';
+import LoadingSpinner from '../../common/LoadingSpinner';
 
 export interface ContactScreenProps {
   name: string;
@@ -26,13 +32,23 @@ const ContactScreen = () => {
   const route = useRoute();
   const dispatch = useAppDispatch();
   const {name, number} = route.params as ContactScreenProps;
-  const currentUser = useAppSelector(currentUserSelector);
-  const chatUser = useAppSelector(chatUserSelector);
+  const currentUserId = useAppSelector(currentUserIdSelector);
+  const chatUserId = useAppSelector(chatUserIdSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
-
+  const loading = useAppSelector(isMessagesLoading);
+  console.log(chatUserId, currentUserId);
   useEffect(() => {
     dispatch(getUserByMobile(number));
-  }, []);
+    if (currentUserId && chatUserId) {
+      console.log(123);
+      dispatch(
+        getChatUserMessages({
+          currentUserId,
+          chatUserId,
+        }),
+      );
+    }
+  }, [chatUserId, currentUserId, dispatch, number]);
 
   const {control, handleSubmit} = useForm({
     mode: 'onChange',
@@ -41,10 +57,10 @@ const ContactScreen = () => {
     },
   });
   const onSend = (data: {message: string}) => {
-    if (currentUser && chatUser) {
+    if (currentUserId && chatUserId) {
       const createMessage: IMessage = {
-        from: currentUser._id,
-        to: chatUser._id,
+        from: currentUserId,
+        to: chatUserId,
         text: data.message,
         createdAt: new Date(),
       };
@@ -55,9 +71,13 @@ const ContactScreen = () => {
   return (
     <MainLayout>
       <View style={styles.contactCardContainer}>
-        {messages.map((message, i) => {
-          return <Text key={i}>{message.text}</Text>;
-        })}
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          messages.map((message, i) => {
+            return <Text key={i}>{message.text}</Text>;
+          })
+        )}
         <Box style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
             <Controller

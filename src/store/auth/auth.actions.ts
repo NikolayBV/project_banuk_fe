@@ -15,7 +15,6 @@ export const login = createAsyncThunk(
         const {access_token, refresh_token, user} = data;
         await AsyncStorage.setItem('access_token', access_token);
         await AsyncStorage.setItem('refresh_token', refresh_token);
-        dispatch(setUser(user));
       }
     } catch (error: any) {
       Toast.show({
