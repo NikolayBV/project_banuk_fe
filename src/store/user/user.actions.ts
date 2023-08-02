@@ -2,10 +2,11 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {IUser} from '../../utils/types';
 import Toast from 'react-native-toast-message';
 import UserServices from '../../api/user.services';
+import {setAuth, setUnAuth} from '../auth/auth.slice';
 
 export const createUser = createAsyncThunk(
   'USER_CREATE',
-  async (user: IUser, {rejectWithValue, dispatch}) => {
+  async (user: IUser, {rejectWithValue}) => {
     try {
       const newUser = await UserServices.createUser(user);
       Toast.show({
@@ -23,12 +24,17 @@ export const createUser = createAsyncThunk(
 
 export const getUser = createAsyncThunk(
   'GET_USER',
-  async (_, {rejectWithValue}) => {
+  async (_, {rejectWithValue, dispatch}) => {
     try {
-      return await UserServices.getUser();
+      const user = await UserServices.getUser();
+      if (user) {
+        dispatch(setAuth());
+        return user;
+      }
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
+      dispatch(setUnAuth());
       return rejectWithValue(errorMessage);
     }
   },

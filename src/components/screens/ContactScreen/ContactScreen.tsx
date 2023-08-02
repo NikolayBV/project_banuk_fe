@@ -36,17 +36,10 @@ const ContactScreen = () => {
   const chatUserId = useAppSelector(chatUserIdSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
   const loading = useAppSelector(isMessagesLoading);
-  console.log(chatUserId, currentUserId);
   useEffect(() => {
     dispatch(getUserByMobile(number));
     if (currentUserId && chatUserId) {
-      console.log(123);
-      dispatch(
-        getChatUserMessages({
-          currentUserId,
-          chatUserId,
-        }),
-      );
+      dispatch(getChatUserMessages(chatUserId));
     }
   }, [chatUserId, currentUserId, dispatch, number]);
 

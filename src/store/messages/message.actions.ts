@@ -1,7 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import MessagesServices from '../../api/messages.services';
 import {IMessage} from '../../utils/types';
-import UserServices from '../../api/user.services';
 
 export const sendMessage = createAsyncThunk(
   'SEND_MESSAGE',
@@ -19,12 +18,9 @@ export const sendMessage = createAsyncThunk(
 
 export const getChatUserMessages = createAsyncThunk(
   'GET_CHAT_USER_MESSAGES',
-  async (
-    {currentUserId, chatUserId}: Record<string, string>,
-    {rejectWithValue},
-  ) => {
+  async (chatUserId: string, {rejectWithValue}) => {
     try {
-      return await UserServices.getUserMessages(currentUserId, chatUserId);
+      return await MessagesServices.getUserMessages(chatUserId);
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
