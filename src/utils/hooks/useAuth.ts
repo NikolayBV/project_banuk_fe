@@ -1,12 +1,14 @@
 import {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch} from '../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {getUser} from '../../store/user/user.actions';
 import {removeUser} from '../../store/user/user.slice';
 import {setUnAuth} from '../../store/auth/auth.slice';
+import {authSelectors} from '../../store/auth/auth.selectors';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
+  const auth = useAppSelector(authSelectors);
 
   useEffect(() => {
     const checkAuthorization = async () => {
@@ -21,5 +23,5 @@ export const useAuth = () => {
     };
 
     checkAuthorization();
-  }, [dispatch]);
+  }, [dispatch, auth]);
 };

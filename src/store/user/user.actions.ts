@@ -3,6 +3,7 @@ import {IUser} from '../../utils/types';
 import Toast from 'react-native-toast-message';
 import UserServices from '../../api/user.services';
 import {setAuth, setUnAuth} from '../auth/auth.slice';
+import {clearMessages} from '../messages/message.slice';
 
 export const createUser = createAsyncThunk(
   'USER_CREATE',
@@ -42,10 +43,11 @@ export const getUser = createAsyncThunk(
 
 export const getUserByMobile = createAsyncThunk(
   'GET_USER_BY_MOBILE',
-  async (mobile: Array<string>, {rejectWithValue}) => {
+  async (mobile: Array<string>, {rejectWithValue, dispatch}) => {
     try {
       return await UserServices.getUserByMobile(mobile);
     } catch (error: any) {
+      dispatch(clearMessages());
       if (error?.response?.data?.message === 'User does not found!') {
         Toast.show({
           type: 'error',

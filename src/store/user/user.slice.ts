@@ -19,6 +19,9 @@ const userSlice = createSlice({
     removeUser: state => {
       state.currentUser = null;
     },
+    removeChatUser: state => {
+      state.chatUser = null;
+    },
   },
   extraReducers: builder => {
     builder.addCase(createUser.fulfilled, (state, {payload}) => {
@@ -33,9 +36,12 @@ const userSlice = createSlice({
     builder.addCase(getUserByMobile.fulfilled, (state, {payload}) => {
       state.chatUser = payload;
     });
+    builder.addCase(getUserByMobile.rejected, state => {
+      state.chatUser = null;
+    });
   },
 });
 
-export const {removeUser} = userSlice.actions;
+export const {removeUser, removeChatUser} = userSlice.actions;
 
 export default userSlice.reducer;

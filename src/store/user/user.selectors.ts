@@ -13,7 +13,6 @@ export const chatUserIdSelector = createSelector(chatUserSelector, user => {
 export const currentUserIdSelector = createSelector(
   currentUserSelector,
   user => {
-    console.log(user);
     return user?._id;
   },
 );

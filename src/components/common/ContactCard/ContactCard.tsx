@@ -11,6 +11,10 @@ import {
   VStack,
   Text,
 } from 'native-base';
+import {getUserByMobile} from '../../../store/user/user.actions';
+import {useAppDispatch} from '../../../store/hooks';
+import {getChatUserMessages} from '../../../store/messages/message.actions';
+import {clearMessages} from '../../../store/messages/message.slice';
 
 interface ContactCardProps {
   name: string;
@@ -20,8 +24,16 @@ interface ContactCardProps {
 const ContactCard = ({name, number}: ContactCardProps) => {
   const navigation = useNavigation<RootNavigationProp>();
   const label = getTwoLettersFromName(name);
+  const dispatch = useAppDispatch();
 
   const handlePress = () => {
+    dispatch(getUserByMobile(number)).then(res => {
+      if (typeof res.payload === 'object') {
+        dispatch(getChatUserMessages(res.payload._id));
+      } else {
+        dispatch(clearMessages());
+      }
+    });
     navigation.navigate('ContactScreen', {name, number});
   };
 

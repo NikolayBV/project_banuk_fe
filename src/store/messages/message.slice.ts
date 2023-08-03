@@ -15,7 +15,12 @@ const initialState: MessageState = {
 const messageSlice = createSlice({
   name: 'messages',
   initialState,
-  reducers: {},
+  reducers: {
+    clearMessages: state => {
+      state.isLoadingMessages = false;
+      state.currentUserMessages = [];
+    },
+  },
   extraReducers: builder => {
     builder.addCase(sendMessage.fulfilled, (state, {payload}) => {
       state.currentUserMessages = payload;
@@ -29,5 +34,5 @@ const messageSlice = createSlice({
     });
   },
 });
-
+export const {clearMessages} = messageSlice.actions;
 export default messageSlice.reducer;
