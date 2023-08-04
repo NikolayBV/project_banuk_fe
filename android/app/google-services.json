@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1003318950434",
+    "project_id": "banuk-1bbde",
+    "storage_bucket": "banuk-1bbde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003318950434:android:f07d0d20c48654cd75a87b",
+        "android_client_info": {
+          "package_name": "com.project_banuk_fe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003318950434-l3rn9kh5t0601955o65tg28jmnbtsbou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project_banuk_fe",
+            "certificate_hash": "76fcbd03b52598dddcc35db8a38ee56a351146dd"
+          }
+        },
+        {
+          "client_id": "1003318950434-fh7masbe3g2kce63q14uopoblhhejafo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGZsAQEsyHGAfv0fJlEueBawydeisCxM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003318950434-fh7masbe3g2kce63q14uopoblhhejafo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

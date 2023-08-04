@@ -3,16 +3,14 @@ import {LoginUser} from '../../utils/types';
 import AuthServices from '../../api/auth.services';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setUser} from '../user/user.slice';
-import {setAuth} from './auth.slice';
 
 export const login = createAsyncThunk(
   'LOGIN',
-  async (loginData: LoginUser, {rejectWithValue, dispatch}) => {
+  async (loginData: LoginUser, {rejectWithValue}) => {
     try {
       const data = await AuthServices.login(loginData);
       if (data) {
-        const {access_token, refresh_token, user} = data;
+        const {access_token, refresh_token} = data;
         await AsyncStorage.setItem('access_token', access_token);
         await AsyncStorage.setItem('refresh_token', refresh_token);
       }
@@ -30,7 +28,7 @@ export const login = createAsyncThunk(
 
 export const verifyToken = createAsyncThunk(
   'VERIFY_TOKEN',
-  async (token: string, {rejectWithValue, dispatch}) => {
+  async (token: string, {rejectWithValue}) => {
     try {
       const data = await AuthServices.verify(token);
       return data;
