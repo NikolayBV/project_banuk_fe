@@ -21,6 +21,11 @@ class UserServices {
     const {data} = await this.api.post('api/user/mobile', mobiles);
     return data;
   };
+
+  setUserFcmToken = async (token: string) => {
+    const {data} = await this.api.post('api/user/fcm', {token});
+    return data;
+  };
 }
 
 export default new UserServices();

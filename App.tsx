@@ -13,6 +13,7 @@ import {NativeBaseProvider} from 'native-base';
 import {useAuth} from './src/utils/hooks/useAuth';
 import {useAppSelector} from './src/store/hooks';
 import {authSelectors} from './src/store/auth/auth.selectors';
+import messaging from '@react-native-firebase/messaging';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
@@ -60,9 +61,6 @@ const AuthNavigator = () => {
     <Stack.Navigator
       initialRouteName={'MainScreen'}
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="EnterScreen" component={EnterScreen} />
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen
         name="MainScreen"
         component={MainScreen}
