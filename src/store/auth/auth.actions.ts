@@ -3,6 +3,7 @@ import {LoginUser} from '../../utils/types';
 import AuthServices from '../../api/auth.services';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setUnAuth} from './auth.slice';
 
 export const login = createAsyncThunk(
   'LOGIN',
@@ -19,6 +20,21 @@ export const login = createAsyncThunk(
         type: 'error',
         text2: 'error',
       });
+      const errorMessage =
+        error?.response?.data?.message || 'Что-то пошло не так';
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
+
+export const setUnAuthorized = createAsyncThunk(
+  'SET_UNAUTHORIZED',
+  async (_, {rejectWithValue, dispatch}) => {
+    try {
+      AsyncStorage.multiRemove(['access_token', 'refresh_token']).then(() =>
+        dispatch(setUnAuth()),
+      );
+    } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
       return rejectWithValue(errorMessage);

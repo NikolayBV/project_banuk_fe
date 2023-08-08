@@ -25,7 +25,6 @@ const ContactCard = ({name, number}: ContactCardProps) => {
   const navigation = useNavigation<RootNavigationProp>();
   const label = getTwoLettersFromName(name);
   const dispatch = useAppDispatch();
-
   const handlePress = () => {
     dispatch(getUserByMobile(number)).then(res => {
       if (typeof res.payload === 'object') {

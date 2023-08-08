@@ -1,11 +1,6 @@
 import {IUser} from '../../utils/types';
 import {createSlice} from '@reduxjs/toolkit';
-import {
-  createUser,
-  getUser,
-  getUserByMobile,
-  setUserFcmToken,
-} from './user.actions';
+import {createUser, getUser, getUserByMobile} from './user.actions';
 
 interface UserState {
   currentUser: IUser | null;
@@ -43,12 +38,6 @@ const userSlice = createSlice({
     });
     builder.addCase(getUserByMobile.rejected, state => {
       state.chatUser = null;
-    });
-    builder.addCase(setUserFcmToken.fulfilled, (state, {payload}) => {
-      state.currentUser = payload;
-    });
-    builder.addCase(setUserFcmToken.rejected, state => {
-      state.currentUser = null;
     });
   },
 });

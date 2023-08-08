@@ -10,7 +10,8 @@ export const createUser = createAsyncThunk(
   'USER_CREATE',
   async (user: IUser, {rejectWithValue}) => {
     try {
-      const newUser = await UserServices.createUser(user);
+      const fcmToken = await messaging().getToken();
+      const newUser = await UserServices.createUser(user, fcmToken);
       Toast.show({
         type: 'success',
         text1: 'success',
@@ -37,20 +38,6 @@ export const getUser = createAsyncThunk(
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
       dispatch(setUnAuth());
-      return rejectWithValue(errorMessage);
-    }
-  },
-);
-
-export const setUserFcmToken = createAsyncThunk(
-  'SET_USER_FCM_TOKEN',
-  async (_, {rejectWithValue, dispatch}) => {
-    try {
-      const token = await messaging().getToken();
-      return await UserServices.setUserFcmToken(token);
-    } catch (error: any) {
-      const errorMessage =
-        error?.response?.data?.message || 'Что-то пошло не так';
       return rejectWithValue(errorMessage);
     }
   },

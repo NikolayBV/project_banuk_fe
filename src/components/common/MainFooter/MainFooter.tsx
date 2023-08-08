@@ -5,15 +5,14 @@ import {IconButton, Pressable} from 'native-base';
 import {styles} from './MainFooter.styles';
 import theme from '../../../styles/theme';
 import {useAppDispatch} from '../../../store/hooks';
-import {setUnAuth} from '../../../store/auth/auth.slice';
 import {removeUser} from '../../../store/user/user.slice';
+import {setUnAuthorized} from '../../../store/auth/auth.actions';
 
-const MainFooter = ({navigation}: any) => {
+const MainFooter = () => {
   const dispatch = useAppDispatch();
+
   const handleLogout = () => {
-    dispatch(setUnAuth());
-    dispatch(removeUser());
-    navigation.navigate('EnterScreen');
+    dispatch(setUnAuthorized()).then(() => dispatch(removeUser()));
   };
 
   return (

@@ -11,9 +11,6 @@ import ContactScreen from './src/components/screens/ContactScreen';
 import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
 import {NativeBaseProvider} from 'native-base';
 import {useAuth} from './src/utils/hooks/useAuth';
-import {useAppSelector} from './src/store/hooks';
-import {authSelectors} from './src/store/auth/auth.selectors';
-import messaging from '@react-native-firebase/messaging';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
@@ -33,25 +30,6 @@ const NonAuthNavigator = () => {
       <Stack.Screen name="EnterScreen" component={EnterScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
-      <Stack.Screen
-        name="MainScreen"
-        component={MainScreen}
-        options={{gestureEnabled: false}}
-      />
-      <Stack.Screen
-        name="ContactScreen"
-        component={ContactScreen}
-        options={({route}) => ({
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#DEB887',
-          },
-          title: route.params.name,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        })}
-      />
     </Stack.Navigator>
   );
 };
@@ -85,8 +63,7 @@ const AuthNavigator = () => {
 };
 
 function App() {
-  const auth = useAppSelector(authSelectors);
-  useAuth();
+  const auth = useAuth();
 
   return (
     <NavigationContainer>

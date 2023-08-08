@@ -5,7 +5,6 @@ export interface IUser {
   _id: string;
   mobile: string;
   nickName: string;
-  fcmToken?: string;
 }
 
 export interface LoginUser {

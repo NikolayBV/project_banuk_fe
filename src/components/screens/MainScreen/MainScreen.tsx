@@ -15,13 +15,18 @@ const MainScreen = ({navigation}: Props) => {
   return (
     <MainLayout>
       <ScrollView>
-        {contacts.map((contact, index) => (
-          <ContactCard
-            key={index}
-            name={contact.name}
-            number={contact.numbers}
-          />
-        ))}
+        {contacts.map((contact, index) => {
+          if (contact.name === 'Николай Бабкин') {
+            contact.numbers = ['+7 999 457-93-53'];
+          }
+          return (
+            <ContactCard
+              key={index}
+              name={contact.name}
+              number={contact.numbers}
+            />
+          );
+        })}
       </ScrollView>
       <MainFooter navigation={navigation} />
     </MainLayout>
