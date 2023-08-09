@@ -1,12 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {IconButton, Pressable} from 'native-base';
 import {styles} from './MainFooter.styles';
 import theme from '../../../styles/theme';
 import {useAppDispatch} from '../../../store/hooks';
 import {removeUser} from '../../../store/user/user.slice';
 import {setUnAuthorized} from '../../../store/auth/auth.actions';
+import {SvgIcons} from '../../../../assets';
 
 const MainFooter = () => {
   const dispatch = useAppDispatch();
@@ -19,20 +19,20 @@ const MainFooter = () => {
     <View style={styles.footerContainer}>
       <Pressable>
         <IconButton
-          icon={<Icon name={'contacts'} size={30} />}
+          icon={<SvgIcons.chat width={30} height={30} />}
           _icon={{color: theme.colors.onPrimary}}
         />
       </Pressable>
       <Pressable>
         <IconButton
-          icon={<Icon name={'chat'} size={30} />}
+          icon={<SvgIcons.contacts width={30} height={30} />}
           _icon={{color: theme.colors.onPrimary}}
         />
       </Pressable>
       <Pressable>
         <IconButton
           onPress={handleLogout}
-          icon={<Icon name={'logout'} size={30} />}
+          icon={<SvgIcons.logout width={30} height={30} />}
           _icon={{color: theme.colors.onPrimary}}
         />
       </Pressable>

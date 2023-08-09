@@ -7,9 +7,7 @@ import MainFooter from '../../common/MainFooter';
 import {RootStackParamList} from '../../../../App';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'MainScreen'>;
-
-const MainScreen = ({navigation}: Props) => {
+const MainScreen = () => {
   const contacts = useContacts();
 
   return (
@@ -28,7 +26,7 @@ const MainScreen = ({navigation}: Props) => {
           );
         })}
       </ScrollView>
-      <MainFooter navigation={navigation} />
+      <MainFooter />
     </MainLayout>
   );
 };

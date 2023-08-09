@@ -1,7 +1,6 @@
 import {IFetchingStatuses} from '../../utils/types';
 import {createSlice} from '@reduxjs/toolkit';
 import {login, setUnAuthorized} from './auth.actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AuthSliceInitialState {
   isLoading: IFetchingStatuses | null;
@@ -36,6 +35,10 @@ const authSlice = createSlice({
       state.isLoading = IFetchingStatuses.pending;
     });
     builder.addCase(login.rejected, state => {
+      state.isAuth = false;
+      state.isLoading = IFetchingStatuses.error;
+    });
+    builder.addCase(setUnAuthorized.fulfilled, state => {
       state.isAuth = false;
       state.isLoading = IFetchingStatuses.error;
     });
