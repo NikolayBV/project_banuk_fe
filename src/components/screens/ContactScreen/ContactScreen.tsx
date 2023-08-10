@@ -11,12 +11,12 @@ import {
   currentUserSelector,
 } from '../../../store/user/user.selectors';
 import {IMessage} from '../../../utils/types';
-import {sendMessage} from '../../../store/messages/message.actions';
 import {
   currentUserMessagesSelector,
   isMessagesLoading,
 } from '../../../store/messages/messages.selectors';
 import LoadingSpinner from '../../common/LoadingSpinner';
+import WebsocketService from '../../../api/websocket.service';
 
 export interface ContactScreenProps {
   name: string;
@@ -24,9 +24,7 @@ export interface ContactScreenProps {
 }
 
 const ContactScreen = () => {
-  //const route = useRoute();
   const dispatch = useAppDispatch();
-  //const {name, number} = route.params as ContactScreenProps;
   const currentUser = useAppSelector(currentUserSelector);
   const chatUser = useAppSelector(chatUserSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
@@ -39,16 +37,20 @@ const ContactScreen = () => {
     },
   });
   const onSend = (data: {message: string}) => {
-    if (currentUser && chatUser) {
+    if (currentUser?._id && chatUser?._id) {
       const createMessage: IMessage = {
         from: currentUser._id,
         to: chatUser._id,
         text: data.message,
         createdAt: new Date(),
       };
-      dispatch(sendMessage(createMessage)).then(() => {
-        setValue('message', '');
-      });
+      WebsocketService.sendMessage(
+        'websocket.message.sendMessage',
+        createMessage,
+      );
+      // dispatch(sendMessage(createMessage)).then(() => {
+      //   setValue('message', '');
+      // });
     }
   };
 
