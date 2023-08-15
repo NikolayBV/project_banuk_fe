@@ -4,14 +4,12 @@ import Toast from 'react-native-toast-message';
 import UserServices from '../../api/user.services';
 import {setAuth, setUnAuth} from '../auth/auth.slice';
 import {clearMessages} from '../messages/message.slice';
-import messaging from '@react-native-firebase/messaging';
 
 export const createUser = createAsyncThunk(
   'USER_CREATE',
   async (user: IUser, {rejectWithValue}) => {
     try {
-      const fcmToken = await messaging().getToken();
-      const newUser = await UserServices.createUser(user, fcmToken);
+      const newUser = await UserServices.createUser(user);
       Toast.show({
         type: 'success',
         text1: 'success',

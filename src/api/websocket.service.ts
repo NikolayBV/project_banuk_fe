@@ -1,47 +1,28 @@
+import {io} from 'socket.io-client';
+
 class WebsocketService {
-  private ws: WebSocket;
+  private socket;
   constructor() {
-    this.ws = new WebSocket('ws://192.168.110.235:3001');
-    this.setupWebSocket();
-  }
-
-  setupWebSocket() {
-    this.ws.onopen = () => {
-      console.log('WebSocket соединение установлено');
+    const socketOptions = {
+      transports: ['websocket'],
     };
+    this.socket = io('http://192.168.110.235:3001', socketOptions);
 
-    this.ws.onmessage = event => {
-      this.handleMessage(event);
-    };
+    this.socket.on('connect', () => {
+      console.log(this.socket.id);
+    });
 
-    this.ws.onclose = () => {
-      console.log('WebSocket соединение закрыто');
-    };
+    this.socket.on('disconnect', () => {
+      console.log(this.socket.id);
+    });
 
-    this.ws.onerror = error => {
-      this.handleError(error);
-    };
-  }
-
-  handleMessage(event: any) {
-    const message = JSON.parse(event.data);
-    console.log('Получено сообщение:', message);
-  }
-
-  handleError(error: any) {
-    console.error('Ошибка WebSocket соединения:', error);
+    this.socket.on('error', error => {
+      console.error('WebSocket error:', error);
+    });
   }
 
   sendMessage(messageType: string, data: any) {
-    const message = {
-      type: messageType,
-      data: data,
-    };
-    if (this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify(message));
-    } else {
-      console.error('WebSocket соединение не открыто');
-    }
+    this.socket.emit(messageType, data);
   }
 }
 

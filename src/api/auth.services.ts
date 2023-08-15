@@ -7,8 +7,8 @@ class AuthServices {
 
   constructor() {}
 
-  login = async (user: LoginUser) => {
-    const {data} = await this.api.post('/auth/login', user);
+  login = async (user: LoginUser, token: string) => {
+    const {data} = await this.api.post('/auth/login', {user, token});
     return data;
   };
 

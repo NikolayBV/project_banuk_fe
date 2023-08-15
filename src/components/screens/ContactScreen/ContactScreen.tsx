@@ -4,7 +4,6 @@ import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './ContactScreen.styles';
 import {Controller, useForm} from 'react-hook-form';
 import {Box, Input, Pressable, Text} from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {useAppDispatch, useAppSelector} from '../../../store/hooks';
 import {
   chatUserSelector,
@@ -16,7 +15,8 @@ import {
   isMessagesLoading,
 } from '../../../store/messages/messages.selectors';
 import LoadingSpinner from '../../common/LoadingSpinner';
-import WebsocketService from '../../../api/websocket.service';
+import {SvgIcons} from '../../../../assets';
+import {sendMessage} from '../../../store/messages/message.actions';
 
 export interface ContactScreenProps {
   name: string;
@@ -44,13 +44,9 @@ const ContactScreen = () => {
         text: data.message,
         createdAt: new Date(),
       };
-      WebsocketService.sendMessage(
-        'websocket.message.sendMessage',
-        createMessage,
-      );
-      // dispatch(sendMessage(createMessage)).then(() => {
-      //   setValue('message', '');
-      // });
+      dispatch(sendMessage(createMessage)).then(() => {
+        setValue('message', '');
+      });
     }
   };
 
@@ -78,11 +74,7 @@ const ContactScreen = () => {
                   placeholder={'Enter your messages'}
                   InputRightElement={
                     <Pressable onPress={handleSubmit(onSend)}>
-                      <Icon
-                        name={'send'}
-                        size={30}
-                        style={{paddingRight: 10}}
-                      />
+                      <SvgIcons.send width={30} height={30} />
                     </Pressable>
                   }
                 />

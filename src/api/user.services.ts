@@ -7,10 +7,9 @@ class UserServices {
 
   constructor() {}
 
-  createUser = async (user: IUser, fcmToken: string) => {
+  createUser = async (user: IUser) => {
     const {data} = await this.api.post('api/user', {
       user: user,
-      fcmToken,
     });
     return data;
   };
