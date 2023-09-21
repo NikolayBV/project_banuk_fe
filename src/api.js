@@ -31,7 +31,6 @@ instance.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.data.message === 'Token expired') {
       try {
-        const access = await AsyncStorage.getItem('access_token');
         const refresh = await AsyncStorage.getItem('refresh_token');
         const access = await AsyncStorage.getItem('access_token');
         const res = await axios.post(

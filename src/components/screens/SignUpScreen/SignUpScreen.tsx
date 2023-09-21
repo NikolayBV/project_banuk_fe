@@ -31,6 +31,7 @@ const SignUpScreen = () => {
   });
 
   const onSubmit = (data: IUser) => {
+    data.password?.trim();
     dispatch(createUser(data)).then(() => navigation.navigate('EnterScreen'));
   };
 

@@ -5,6 +5,7 @@ export interface IUser {
   _id?: string;
   mobile: string;
   nickName: string;
+  password?: string;
 }
 
 export interface LoginUser {
