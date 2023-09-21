@@ -1,11 +1,9 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {useContacts} from '../../../utils/hooks/useContacts';
 import MainLayout from '../../layouts/MainLayouts';
 import ContactCard from '../../common/ContactCard';
 import MainFooter from '../../common/MainFooter';
-import {RootStackParamList} from '../../../../App';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useContacts} from '../../../utils/hooks/useContacts';
 
 const MainScreen = () => {
   const contacts = useContacts();

@@ -31,9 +31,11 @@ instance.interceptors.response.use(
     if (error.response.data.message === 'Token expired') {
       try {
         const refresh = await AsyncStorage.getItem('refresh_token');
+        const access = await AsyncStorage.getItem('access_token');
         const res = await axios.post(
           baseURL + '/auth/token/refresh',
           {
+            access_token: access,
             refresh_token: refresh,
           },
           {
@@ -50,7 +52,7 @@ instance.interceptors.response.use(
         ]);
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
-      } catch (error) {
+      } catch (err) {
         throw new Error('Unauthorized');
       }
     }
