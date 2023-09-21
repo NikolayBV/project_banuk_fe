@@ -14,8 +14,13 @@ export const createUser = createAsyncThunk(
         type: 'success',
         text1: 'success',
       });
+      console.log(newUser);
       return newUser;
     } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+      });
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
       return rejectWithValue(errorMessage);

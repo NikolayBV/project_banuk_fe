@@ -18,16 +18,16 @@ export const useContacts = () => {
             },
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            const contacts = await Contacts.getAll();
-            setContacts(contacts);
+            const allContacts = await Contacts.getAll();
+            setContacts(allContacts);
           }
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
-          const contacts = await Contacts.getAll();
-          setContacts(contacts);
+          const allContacts = await Contacts.getAll();
+          setContacts(allContacts);
         } catch (error) {
           console.log(error);
         }

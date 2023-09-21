@@ -8,9 +8,9 @@ import {RootStackParamList} from '../../../../App';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const MainScreen = () => {
-  const contacts = useContacts();
+    const contacts = [{name: 'Nick', numbers: ['89994579353']}];
 
-  return (
+    return (
     <MainLayout>
       <ScrollView>
         {contacts.map((contact, index) => {

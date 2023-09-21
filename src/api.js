@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {DB_URL} from '@env';
 
-const baseURL = 'http://192.168.110.235:3001';
+const baseURL = DB_URL;
 
 const instance = axios.create({
   baseURL,
@@ -30,10 +31,12 @@ instance.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.data.message === 'Token expired') {
       try {
+        const access = await AsyncStorage.getItem('access_token');
         const refresh = await AsyncStorage.getItem('refresh_token');
         const res = await axios.post(
           baseURL + '/auth/token/refresh',
           {
+            access_token: access,
             refresh_token: refresh,
           },
           {
@@ -50,7 +53,7 @@ instance.interceptors.response.use(
         ]);
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
-      } catch (error) {
+      } catch (err) {
         throw new Error('Unauthorized');
       }
     }

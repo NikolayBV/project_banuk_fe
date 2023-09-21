@@ -3,14 +3,12 @@ import {LoginUser} from '../../utils/types';
 import AuthServices from '../../api/auth.services';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import messaging from '@react-native-firebase/messaging';
 
 export const login = createAsyncThunk(
   'LOGIN',
-  async (loginData: LoginUser, {rejectWithValue}) => {
+  async (loginData: LoginUser, {rejectWithValue, dispatch}) => {
     try {
-      const fcmToken = await messaging().getToken();
-      const data = await AuthServices.login(loginData, fcmToken);
+      const data = await AuthServices.login(loginData);
       if (data) {
         const {access_token, refresh_token} = data;
         await AsyncStorage.setItem('access_token', access_token);
