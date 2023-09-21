@@ -33,6 +33,7 @@ instance.interceptors.response.use(
       try {
         const access = await AsyncStorage.getItem('access_token');
         const refresh = await AsyncStorage.getItem('refresh_token');
+        const access = await AsyncStorage.getItem('access_token');
         const res = await axios.post(
           baseURL + '/auth/token/refresh',
           {
