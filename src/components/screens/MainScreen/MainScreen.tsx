@@ -6,12 +6,13 @@ import MainFooter from '../../common/MainFooter';
 import {useContacts} from '../../../utils/hooks/useContacts';
 
 const MainScreen = () => {
-    const contacts = [{name: 'Nick', numbers: ['89994579353']}];
+  const contacts = useContacts();
+  const newContacts = contacts.slice(0, 10);
 
-    return (
+  return (
     <MainLayout>
       <ScrollView>
-        {contacts.map((contact, index) => {
+        {newContacts.map((contact, index) => {
           if (contact.name === 'Николай Бабкин') {
             contact.numbers = ['+7 999 457-93-53'];
           }

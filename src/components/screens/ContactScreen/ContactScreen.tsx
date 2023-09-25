@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import MainLayout from '../../layouts/MainLayouts';
 import {styles} from './ContactScreen.styles';
@@ -17,6 +17,7 @@ import {
 import LoadingSpinner from '../../common/LoadingSpinner';
 import {SvgIcons} from '../../../../assets';
 import {sendMessage} from '../../../store/messages/message.actions';
+//import WebsocketService from '../../../api/websocket.service';
 
 export interface ContactScreenProps {
   name: string;
@@ -29,6 +30,10 @@ const ContactScreen = () => {
   const chatUser = useAppSelector(chatUserSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
   const loading = useAppSelector(isMessagesLoading);
+
+  // useEffect(() => {
+  //   WebsocketService.connect();
+  // }, []);
 
   const {control, handleSubmit, setValue} = useForm({
     mode: 'onChange',

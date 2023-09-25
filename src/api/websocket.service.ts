@@ -1,28 +1,41 @@
-import {io} from 'socket.io-client';
+import {io, Socket} from 'socket.io-client';
+import {DB_URL} from '@env';
 
 class WebsocketService {
-  private socket;
+  private socket: Socket;
+  private url = DB_URL;
   constructor() {
-    const socketOptions = {
+    this.socket = io(this.url, {
       transports: ['websocket'],
-    };
-    this.socket = io('http://192.168.110.235:3001', socketOptions);
-
-    this.socket.on('connect', () => {
-      console.log(this.socket.id);
     });
-
-    this.socket.on('disconnect', () => {
-      console.log(this.socket.id);
-    });
-
-    this.socket.on('error', error => {
-      console.error('WebSocket error:', error);
-    });
+    // this.socket.on('connect', this.handleConnect.bind(this));
+    // this.socket.on('disconnect', this.handleDisconnect.bind(this));
+    // this.socket.on('error', this.handleError.bind(this));
   }
 
-  sendMessage(messageType: string, data: any) {
+  private handleConnect() {
+    console.log('WebSocket connected:', this.socket.id);
+  }
+
+  private handleDisconnect() {
+    console.log('WebSocket disconnected:', this.socket.id);
+  }
+
+  private handleError(error: any) {
+    console.error('WebSocket error:', error);
+  }
+
+  public connect() {
+    this.socket.connect();
+  }
+
+  public sendMessage(messageType: string, data: any) {
+    console.log(data, 'socket');
     this.socket.emit(messageType, data);
+  }
+
+  public disconnect() {
+    this.socket.disconnect();
   }
 }
 
