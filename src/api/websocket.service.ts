@@ -8,9 +8,6 @@ class WebsocketService {
     this.socket = io(this.url, {
       transports: ['websocket'],
     });
-    // this.socket.on('connect', this.handleConnect.bind(this));
-    // this.socket.on('disconnect', this.handleDisconnect.bind(this));
-    // this.socket.on('error', this.handleError.bind(this));
   }
 
   private handleConnect() {

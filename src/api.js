@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DB_URL} from '@env';
 
 const baseURL = DB_URL;
-console.log(baseURL);
+console.log(baseURL, 'url');
 const instance = axios.create({
   baseURL,
   headers: {
