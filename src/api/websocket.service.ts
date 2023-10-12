@@ -4,30 +4,26 @@ import {DB_URL} from '@env';
 class WebsocketService {
   private socket: Socket;
   private url = DB_URL;
+
   constructor() {
     this.socket = io(this.url, {
       transports: ['websocket'],
     });
-  }
 
-  private handleConnect() {
-    console.log('WebSocket connected:', this.socket.id);
-  }
+    this.socket.on('connect', () => {
+      console.log('Подключение к вебсокету установлено');
+    });
 
-  private handleDisconnect() {
-    console.log('WebSocket disconnected:', this.socket.id);
-  }
+    this.socket.on('disconnect', () => {
+      console.log('Подключение к вебсокету разорвано');
+    });
 
-  private handleError(error: any) {
-    console.error('WebSocket error:', error);
-  }
-
-  public connect() {
-    this.socket.connect();
+    this.socket.on('newMessage', message => {
+      console.log('Получено новое сообщение:', message);
+    });
   }
 
   public sendMessage(messageType: string, data: any) {
-    console.log(data, 'socket');
     this.socket.emit(messageType, data);
   }
 

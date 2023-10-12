@@ -7,8 +7,8 @@ export const sendMessage = createAsyncThunk(
   'SEND_MESSAGE',
   async (data: IMessage, {rejectWithValue}) => {
     try {
-      const result = await MessagesServices.sendMessage(data);
       WebsocketService.sendMessage('message', data);
+      const result = await MessagesServices.sendMessage(data);
       return result.messages;
     } catch (error: any) {
       const errorMessage =
