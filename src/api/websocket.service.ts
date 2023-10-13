@@ -3,14 +3,16 @@ import {DB_URL} from '@env';
 
 class WebsocketService {
   private socket: Socket;
-  private url = DB_URL;
+  private url = 'http://192.168.110.148:3001';
 
-  constructor() {
+  constructor(userId: string | undefined) {
     this.socket = io(this.url, {
       transports: ['websocket'],
+      query: {userId},
     });
 
     this.socket.on('connect', () => {
+      console.log(userId);
       console.log('Подключение к вебсокету установлено');
     });
 
@@ -24,6 +26,8 @@ class WebsocketService {
   }
 
   public sendMessage(messageType: string, data: any) {
+    console.log(this.socket.id);
+    this.socket.emit('joinRoom', {roomName: `user_${data.to}`});
     this.socket.emit(messageType, data);
   }
 
@@ -32,4 +36,4 @@ class WebsocketService {
   }
 }
 
-export default new WebsocketService();
+export default WebsocketService;

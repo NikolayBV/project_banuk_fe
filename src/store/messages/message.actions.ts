@@ -1,13 +1,11 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import MessagesServices from '../../api/messages.services';
 import {IMessage} from '../../utils/types';
-import WebsocketService from '../../api/websocket.service';
 
 export const sendMessage = createAsyncThunk(
   'SEND_MESSAGE',
   async (data: IMessage, {rejectWithValue}) => {
     try {
-      WebsocketService.sendMessage('message', data);
       const result = await MessagesServices.sendMessage(data);
       return result.messages;
     } catch (error: any) {

@@ -17,6 +17,7 @@ import {
 import LoadingSpinner from '../../common/LoadingSpinner';
 import {SvgIcons} from '../../../../assets';
 import {sendMessage} from '../../../store/messages/message.actions';
+import WebsocketService from '../../../api/websocket.service';
 
 export interface ContactScreenProps {
   name: string;
@@ -29,6 +30,13 @@ const ContactScreen = () => {
   const chatUser = useAppSelector(chatUserSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
   const loading = useAppSelector(isMessagesLoading);
+  const websocketService = new WebsocketService(currentUser?._id);
+
+  useEffect(() => {
+    return () => {
+      websocketService.disconnect();
+    };
+  }, []);
 
   const {control, handleSubmit, setValue} = useForm({
     mode: 'onChange',
@@ -44,6 +52,7 @@ const ContactScreen = () => {
         text: data.message,
         createdAt: new Date(),
       };
+      websocketService.sendMessage('message', createMessage);
       dispatch(sendMessage(createMessage)).then(() => {
         setValue('message', '');
       });
