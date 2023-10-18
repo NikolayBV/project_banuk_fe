@@ -16,7 +16,10 @@ import {
 } from '../../../store/messages/messages.selectors';
 import LoadingSpinner from '../../common/LoadingSpinner';
 import {SvgIcons} from '../../../../assets';
-import {sendMessage} from '../../../store/messages/message.actions';
+import {
+  getChatUserMessages,
+  sendMessage,
+} from '../../../store/messages/message.actions';
 import WebsocketService from '../../../api/websocket.service';
 
 export interface ContactScreenProps {
@@ -30,13 +33,18 @@ const ContactScreen = () => {
   const chatUser = useAppSelector(chatUserSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
   const loading = useAppSelector(isMessagesLoading);
-  const websocketService = new WebsocketService(currentUser?._id);
 
   useEffect(() => {
+    if (currentUser?._id && chatUser?._id) {
+      WebsocketService.connect(currentUser._id);
+      WebsocketService.addMessageHandler(data => {
+        dispatch(getChatUserMessages(chatUser._id!));
+      });
+    }
     return () => {
-      websocketService.disconnect();
+      WebsocketService.disconnect();
     };
-  }, []);
+  }, [currentUser]);
 
   const {control, handleSubmit, setValue} = useForm({
     mode: 'onChange',
@@ -52,7 +60,7 @@ const ContactScreen = () => {
         text: data.message,
         createdAt: new Date(),
       };
-      websocketService.sendMessage('message', createMessage);
+      WebsocketService.sendMessage(chatUser._id, createMessage);
       dispatch(sendMessage(createMessage)).then(() => {
         setValue('message', '');
       });
