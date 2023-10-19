@@ -7,12 +7,11 @@ import {useContacts} from '../../../utils/hooks/useContacts';
 
 const MainScreen = () => {
   const contacts = useContacts();
-  const newContacts = contacts.slice(0, 10);
 
   return (
     <MainLayout>
       <ScrollView>
-        {newContacts.map((contact, index) => {
+        {contacts.map((contact, index) => {
           if (contact.name === 'Николай Бабкин') {
             contact.numbers = ['+7 999 457-93-53'];
           }

@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from 'react';
 import {PermissionsAndroid, Platform} from 'react-native';
 import Contacts from 'react-native-contacts';
+import UserServices from '../../api/user.services';
 
 export const useContacts = () => {
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
@@ -19,7 +20,18 @@ export const useContacts = () => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             const allContacts = await Contacts.getAll();
-            setContacts(allContacts);
+            const numbers = await UserServices.getRegisterUsersNumbers();
+            const filteredContacts = allContacts.filter(contact => {
+              const findNumbers = contact.phoneNumbers.find(item => {
+                return numbers.includes(
+                  item.number.replace(/\D/g, '').trim().slice(-10),
+                );
+              });
+              if (findNumbers) {
+                return contact;
+              }
+            });
+            setContacts(filteredContacts);
           }
         } catch (error) {
           console.log(error);

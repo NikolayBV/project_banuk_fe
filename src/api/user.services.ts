@@ -18,6 +18,11 @@ class UserServices {
     return data;
   };
 
+  getRegisterUsersNumbers = async (): Promise<string[]> => {
+    const {data} = await this.api.get('api/user/numbers');
+    return data;
+  };
+
   getUserByMobile = async (mobiles: string[]) => {
     const {data} = await this.api.post('api/user/mobile', mobiles);
     return data;
