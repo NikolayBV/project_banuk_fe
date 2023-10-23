@@ -7,9 +7,8 @@ class UserServices {
 
   constructor() {}
 
-  createUser = async (user: IUser) => {
-    console.log(user);
-    const {data} = await this.api.post('api/user', user);
+  createUser = async (user: IUser, token: string) => {
+    const {data} = await this.api.post('api/user', {user, fcmToken: token});
     return data;
   };
 
@@ -20,6 +19,11 @@ class UserServices {
 
   getRegisterUsersNumbers = async (): Promise<string[]> => {
     const {data} = await this.api.get('api/user/numbers');
+    return data;
+  };
+
+  setUserFcmToken = async (token: string) => {
+    const {data} = await this.api.post('api/user/fcm', {token});
     return data;
   };
 

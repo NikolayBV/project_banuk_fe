@@ -4,23 +4,38 @@ import Toast from 'react-native-toast-message';
 import UserServices from '../../api/user.services';
 import {setAuth, setUnAuth} from '../auth/auth.slice';
 import {clearMessages} from '../messages/message.slice';
+import messaging from '@react-native-firebase/messaging';
 
 export const createUser = createAsyncThunk(
   'USER_CREATE',
   async (user: IUser, {rejectWithValue}) => {
     try {
-      const newUser = await UserServices.createUser(user);
+      const token = await messaging().getToken();
+      const newUser = await UserServices.createUser(user, token);
       Toast.show({
         type: 'success',
         text1: 'success',
       });
-      console.log(newUser);
       return newUser;
     } catch (error: any) {
       Toast.show({
         type: 'error',
         text1: 'Error',
       });
+      const errorMessage =
+        error?.response?.data?.message || 'Что-то пошло не так';
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
+
+export const setUserFcmToken = createAsyncThunk(
+  'SET_USER_FCM_TOKEN',
+  async (_, {rejectWithValue, dispatch}) => {
+    try {
+      const token = await messaging().getToken();
+      return await UserServices.setUserFcmToken(token);
+    } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || 'Что-то пошло не так';
       return rejectWithValue(errorMessage);

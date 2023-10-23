@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import EnterScreen from './src/components/screens/EnterScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import theme from './src/styles/theme';
@@ -11,6 +11,8 @@ import ContactScreen from './src/components/screens/ContactScreen';
 import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
 import {NativeBaseProvider} from 'native-base';
 import {useAuth} from './src/utils/hooks/useAuth';
+import messaging from '@react-native-firebase/messaging';
+import PushNotificationService from './src/api/pushNotification.service';
 
 export type RootStackParamList = {
   EnterScreen: undefined;
@@ -64,6 +66,10 @@ const AuthNavigator = () => {
 
 function App() {
   const auth = useAuth();
+
+  useEffect(() => {
+    PushNotificationService.initialize();
+  }, []);
 
   return (
     <NavigationContainer>

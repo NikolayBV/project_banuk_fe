@@ -3,7 +3,7 @@ import {IMessage} from '../utils/types';
 
 class WebSocketService {
   private socket: Socket | null = null;
-  private url = 'http://192.168.110.86:3001';
+  private url = 'http://192.168.110.211:3001';
 
   connect(userId: string) {
     this.socket = io(this.url, {

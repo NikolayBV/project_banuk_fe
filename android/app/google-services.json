@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "1003318950434",
-    "project_id": "banuk-1bbde",
-    "storage_bucket": "banuk-1bbde.appspot.com"
+    "project_number": "697869380352",
+    "project_id": "banuk-21e21",
+    "storage_bucket": "banuk-21e21.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1003318950434:android:f07d0d20c48654cd75a87b",
+        "mobilesdk_app_id": "1:697869380352:android:6093d050f4b9115f1d61e5",
         "android_client_info": {
           "package_name": "com.project_banuk_fe"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1003318950434-l3rn9kh5t0601955o65tg28jmnbtsbou.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.project_banuk_fe",
-            "certificate_hash": "76fcbd03b52598dddcc35db8a38ee56a351146dd"
-          }
-        },
-        {
-          "client_id": "1003318950434-fh7masbe3g2kce63q14uopoblhhejafo.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAGZsAQEsyHGAfv0fJlEueBawydeisCxM0"
+          "current_key": "AIzaSyBgNBsyUpRX_VczP7Jj2KZBiWyxy1NVeE0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1003318950434-fh7masbe3g2kce63q14uopoblhhejafo.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
