@@ -20,7 +20,7 @@ import {
   getChatUserMessages,
   sendMessage,
 } from '../../../store/messages/message.actions';
-import WebsocketService from '../../../api/websocket.service';
+import WebsocketService from '../../common/services/websocket.service';
 
 export interface ContactScreenProps {
   name: string;

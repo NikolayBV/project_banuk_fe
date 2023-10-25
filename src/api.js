@@ -2,8 +2,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DB_URL} from '@env';
 
-const baseURL = 'http://192.168.110.211:3001';
-console.log(baseURL, 'url');
+const baseURL = DB_URL;
+console.log(DB_URL, 'api');
 const instance = axios.create({
   baseURL,
   headers: {

@@ -11,8 +11,7 @@ import ContactScreen from './src/components/screens/ContactScreen';
 import {ContactScreenProps} from './src/components/screens/ContactScreen/ContactScreen';
 import {NativeBaseProvider} from 'native-base';
 import {useAuth} from './src/utils/hooks/useAuth';
-import messaging from '@react-native-firebase/messaging';
-import PushNotificationService from './src/api/pushNotification.service';
+import PushNotificationService from './src/components/common/services/pushNotification.service';
 
 export type RootStackParamList = {
   EnterScreen: undefined;

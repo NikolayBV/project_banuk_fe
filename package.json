@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "APP_ENV=development react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
@@ -63,5 +63,9 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "resolutions": {
+    "@babel/core": "^7.20.2",
+    "babel-loader": "^8.3.0"
   }
 }

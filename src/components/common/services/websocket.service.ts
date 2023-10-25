@@ -1,9 +1,10 @@
 import io, {Socket} from 'socket.io-client';
-import {IMessage} from '../utils/types';
+import {IMessage} from '../../../utils/types';
+import {DB_URL} from '@env';
 
 class WebSocketService {
   private socket: Socket | null = null;
-  private url = 'http://192.168.110.211:3001';
+  private url = DB_URL;
 
   connect(userId: string) {
     this.socket = io(this.url, {
