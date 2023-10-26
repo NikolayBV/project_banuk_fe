@@ -2,8 +2,8 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {styles} from './EnterScreen.styles';
 import {useNavigation} from '@react-navigation/native';
-import MainLayout from '../../layouts/MainLayouts';
-import {RootNavigationProp} from '../../../utils/types';
+import MainLayout from '../../components/layouts/MainLayouts';
+import {RootNavigationProp} from '../../utils/types';
 import {Button} from 'native-base';
 
 const EnterScreen = () => {

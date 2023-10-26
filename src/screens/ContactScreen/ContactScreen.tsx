@@ -1,26 +1,27 @@
 import React, {useEffect} from 'react';
 import {View} from 'react-native';
-import MainLayout from '../../layouts/MainLayouts';
+import MainLayout from '../../components/layouts/MainLayouts';
 import {styles} from './ContactScreen.styles';
 import {Controller, useForm} from 'react-hook-form';
 import {Box, Input, Pressable, Text} from 'native-base';
-import {useAppDispatch, useAppSelector} from '../../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {
   chatUserSelector,
   currentUserSelector,
-} from '../../../store/user/user.selectors';
-import {IMessage} from '../../../utils/types';
+} from '../../store/user/user.selectors';
+import {IMessage} from '../../utils/types';
 import {
   currentUserMessagesSelector,
   isMessagesLoading,
-} from '../../../store/messages/messages.selectors';
-import LoadingSpinner from '../../common/LoadingSpinner';
-import {SvgIcons} from '../../../../assets';
+} from '../../store/messages/messages.selectors';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
+import {SvgIcons} from '../../../assets';
 import {
   getChatUserMessages,
   sendMessage,
-} from '../../../store/messages/message.actions';
-import WebsocketService from '../../common/services/websocket.service';
+} from '../../store/messages/message.actions';
+import WebsocketService from '../../components/common/services/websocket.service';
+import MessageCard from '../../components/common/MessageCard';
 
 export interface ContactScreenProps {
   name: string;
@@ -73,8 +74,8 @@ const ContactScreen = () => {
         {loading ? (
           <LoadingSpinner />
         ) : (
-          messages.map((message, i) => {
-            return <Text key={i}>{message.text}</Text>;
+          messages.map(message => {
+            return <MessageCard message={message} key={message?._id} />;
           })
         )}
         <Box style={styles.inputContainer}>

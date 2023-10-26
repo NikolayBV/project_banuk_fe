@@ -12,9 +12,17 @@ export const createUser = createAsyncThunk(
     try {
       const token = await messaging().getToken();
       const newUser = await UserServices.createUser(user, token);
+      await new Promise(resolve => setTimeout(resolve, 100)); // Задержка в миллисекундах
       Toast.show({
         type: 'success',
-        text1: 'success',
+        text1: 'Success',
+      });
+
+      // Второе уведомление
+      await new Promise(resolve => setTimeout(resolve, 100)); // Задержка в миллисекундах
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
       });
       return newUser;
     } catch (error: any) {

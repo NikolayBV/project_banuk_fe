@@ -1,15 +1,15 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Controller, useForm} from 'react-hook-form';
-import {validatePassword, validatePhoneNumber} from '../../../utils/helpers';
-import MainLayout from '../../layouts/MainLayouts';
+import {validatePassword, validatePhoneNumber} from '../../utils/helpers';
+import MainLayout from '../../components/layouts/MainLayouts';
 import {styles} from './SignInScreen.styles';
-import {useAppDispatch, useAppSelector} from '../../../store/hooks';
-import {IFetchingStatuses, LoginUser} from '../../../utils/types';
-import {login} from '../../../store/auth/auth.actions';
-import {loadingSelectors} from '../../../store/auth/auth.selectors';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
+import {IFetchingStatuses, LoginUser} from '../../utils/types';
+import {login} from '../../store/auth/auth.actions';
+import {loadingSelectors} from '../../store/auth/auth.selectors';
 import {Button, Input} from 'native-base';
-import LoadingSpinner from '../../common/LoadingSpinner/index';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const SignInScreen = () => {
   const dispatch = useAppDispatch();

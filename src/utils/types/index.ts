@@ -15,6 +15,7 @@ export interface LoginUser {
 }
 
 export interface IMessage {
+  _id?: string;
   from: string;
   to: string;
   text: string;

@@ -1,16 +1,16 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import MainLayout from '../../layouts/MainLayouts';
+import MainLayout from '../../components/layouts/MainLayouts';
 import {styles} from './SignUp.styles';
 import {Controller, useForm} from 'react-hook-form';
-import {IUser, RootNavigationProp} from '../../../utils/types';
+import {IUser, RootNavigationProp} from '../../utils/types';
 import {
   validateNickname,
   validatePassword,
   validatePhoneNumber,
-} from '../../../utils/helpers';
-import {useAppDispatch} from '../../../store/hooks';
-import {createUser} from '../../../store/user/user.actions';
+} from '../../utils/helpers';
+import {useAppDispatch} from '../../store/hooks';
+import {createUser} from '../../store/user/user.actions';
 import {useNavigation} from '@react-navigation/native';
 import {Button, Input} from 'native-base';
 

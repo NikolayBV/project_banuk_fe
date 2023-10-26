@@ -8,10 +8,12 @@ class PushNotificationService {
       name: 'Default Channel',
     });
     messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log(remoteMessage);
       const alert = remoteMessage.data?.alert as string;
       await this.showNotify(alert, channelId);
     });
     messaging().onMessage(async remoteMessage => {
+      console.log(remoteMessage);
       const alert = remoteMessage.data?.alert as string;
       await this.showNotify(alert, channelId);
     });
