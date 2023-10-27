@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {ScrollView, View} from 'react-native';
 import MainLayout from '../../components/layouts/MainLayouts';
 import {styles} from './ContactScreen.styles';
 import {Controller, useForm} from 'react-hook-form';
-import {Box, Input, Pressable, Text} from 'native-base';
+import {Box, Input, Pressable} from 'native-base';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {
   chatUserSelector,
@@ -34,11 +34,12 @@ const ContactScreen = () => {
   const chatUser = useAppSelector(chatUserSelector);
   const messages = useAppSelector(currentUserMessagesSelector);
   const loading = useAppSelector(isMessagesLoading);
+  const scrollViewRef = useRef<ScrollView | null>(null);
 
   useEffect(() => {
     if (currentUser?._id && chatUser?._id) {
       WebsocketService.connect(currentUser._id);
-      WebsocketService.addMessageHandler(data => {
+      WebsocketService.addMessageHandler(() => {
         dispatch(getChatUserMessages(chatUser._id!));
       });
     }
@@ -46,6 +47,12 @@ const ContactScreen = () => {
       WebsocketService.disconnect();
     };
   }, [currentUser]);
+
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({animated: true});
+    }
+  }, [messages]);
 
   const {control, handleSubmit, setValue} = useForm({
     mode: 'onChange',
@@ -71,13 +78,28 @@ const ContactScreen = () => {
   return (
     <MainLayout>
       <View style={styles.contactCardContainer}>
-        {loading ? (
-          <LoadingSpinner />
-        ) : (
-          messages.map(message => {
-            return <MessageCard message={message} key={message?._id} />;
-          })
-        )}
+        <ScrollView
+          ref={scrollViewRef}
+          onContentSizeChange={() => {
+            if (scrollViewRef.current) {
+              scrollViewRef.current.scrollToEnd({animated: true});
+            }
+          }}
+          style={{width: '100%'}}>
+          {loading ? (
+            <LoadingSpinner />
+          ) : (
+            messages.map(message => {
+              return (
+                <MessageCard
+                  message={message}
+                  currentUserId={currentUser?._id}
+                  key={message?._id}
+                />
+              );
+            })
+          )}
+        </ScrollView>
         <Box style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
             <Controller

@@ -2,16 +2,25 @@ import React from 'react';
 import {Box} from 'native-base';
 import {IMessage} from '../../../utils/types';
 import {styles} from './MessageCard.styles';
+import {Text} from 'react-native';
+import moment from 'moment';
 
 interface MessageCardProps {
   message: IMessage;
+  currentUserId: string | undefined;
 }
 
-const MessageCard = ({message}: MessageCardProps) => {
+const MessageCard = ({message, currentUserId}: MessageCardProps) => {
+  const isCurrentUserMessage = message.from === currentUserId;
+
   return (
     <Box style={styles.MessageContainer}>
       <Box
-        style={styles.MessageWrapper}
+        style={
+          isCurrentUserMessage
+            ? styles.UserMessageWrapper
+            : styles.MessageWrapper
+        }
         alignSelf="center"
         _text={{
           fontSize: 'md',
@@ -20,7 +29,14 @@ const MessageCard = ({message}: MessageCardProps) => {
           letterSpacing: 'lg',
         }}
         bg={['red.400', 'blue.400']}>
-        {message.text}
+        <Box>
+          <Text>{message.text}</Text>
+          <Text>
+            {moment(new Date(message.createdAt)).format(
+              'MMMM Do YYYY, h:mm:ss a',
+            )}
+          </Text>
+        </Box>
       </Box>
     </Box>
   );

@@ -2,9 +2,25 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   MessageContainer: {
-    width: '80%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   },
   MessageWrapper: {
-    width: '100%',
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginRight: '30%',
+  },
+  UserMessageWrapper: {
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginLeft: '30%',
   },
 });
