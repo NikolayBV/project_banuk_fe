@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import theme from '../../../styles/theme';
 
 export const styles = StyleSheet.create({
   MessageContainer: {
@@ -14,6 +15,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     marginRight: '30%',
+    backgroundColor: theme.colors.chatUserMessage,
   },
   UserMessageWrapper: {
     width: '60%',
@@ -21,6 +23,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    marginLeft: '30%',
+    marginLeft: '40%',
+    backgroundColor: theme.colors.yourMessage,
   },
 });

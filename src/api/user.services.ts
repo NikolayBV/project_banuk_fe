@@ -22,6 +22,11 @@ class UserServices {
     return data;
   };
 
+  getChatUsersNumbers = async (currentUserId: string): Promise<string[]> => {
+    const {data} = await this.api.get(`api/user/chatNumbers/${currentUserId}`);
+    return data;
+  };
+
   setUserFcmToken = async (token: string) => {
     const {data} = await this.api.post('api/user/fcm', {token});
     return data;

@@ -21,17 +21,10 @@ const MessageCard = ({message, currentUserId}: MessageCardProps) => {
             ? styles.UserMessageWrapper
             : styles.MessageWrapper
         }
-        alignSelf="center"
-        _text={{
-          fontSize: 'md',
-          fontWeight: 'medium',
-          color: 'warmGray.50',
-          letterSpacing: 'lg',
-        }}
-        bg={['red.400', 'blue.400']}>
-        <Box>
+        alignSelf="flex-start">
+        <Box style={{padding: 3}}>
           <Text>{message.text}</Text>
-          <Text>
+          <Text style={{fontSize: 10, marginTop: 5}}>
             {moment(new Date(message.createdAt)).format(
               'MMMM Do YYYY, h:mm:ss a',
             )}

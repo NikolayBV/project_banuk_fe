@@ -2,9 +2,12 @@ import {useEffect, useMemo, useState} from 'react';
 import {PermissionsAndroid, Platform} from 'react-native';
 import Contacts from 'react-native-contacts';
 import UserServices from '../../api/user.services';
+import {useAppSelector} from '../../store/hooks';
+import {currentUserSelector} from '../../store/user/user.selectors';
 
-export const useContacts = () => {
+export const useContacts = (isOnlyChatUsers?: boolean) => {
   const [contacts, setContacts] = useState<Contacts.Contact[]>([]);
+  const currentUser = useAppSelector(currentUserSelector);
 
   useEffect(() => {
     const getContacts = async () => {
@@ -20,7 +23,12 @@ export const useContacts = () => {
           );
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             const allContacts = await Contacts.getAll();
-            const numbers = await UserServices.getRegisterUsersNumbers();
+            let numbers: string[] = [];
+            if (isOnlyChatUsers && currentUser?._id) {
+              numbers = await UserServices.getChatUsersNumbers(currentUser._id);
+            } else {
+              numbers = await UserServices.getRegisterUsersNumbers();
+            }
             const filteredContacts = allContacts.filter(contact => {
               const findNumbers = contact.phoneNumbers.find(item => {
                 return numbers.includes(
@@ -47,7 +55,7 @@ export const useContacts = () => {
     };
 
     getContacts();
-  }, []);
+  }, [isOnlyChatUsers]);
 
   const formatContacts = contacts.map(contact => {
     return {

@@ -33,6 +33,8 @@ const theme = extendTheme({
     onPrimary: '#000',
     secondary: '#DEB887',
     background: '#ffffff',
+    yourMessage: '#c59b65',
+    chatUserMessage: '#e0b47d',
   },
 });
 

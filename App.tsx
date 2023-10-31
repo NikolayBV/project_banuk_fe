@@ -17,7 +17,7 @@ export type RootStackParamList = {
   EnterScreen: undefined;
   SignUpScreen: undefined;
   SignInScreen: undefined;
-  MainScreen: undefined;
+  MainScreen: {isOnlyChatUsers: boolean};
   ContactScreen: ContactScreenProps;
 };
 
@@ -44,6 +44,7 @@ const AuthNavigator = () => {
         name="MainScreen"
         component={MainScreen}
         options={{gestureEnabled: false}}
+        initialParams={{isOnlyChatUsers: true}}
       />
       <Stack.Screen
         name="ContactScreen"
