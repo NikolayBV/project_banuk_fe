@@ -39,19 +39,19 @@ const MainFooter = ({isOnlyChatUser}: {isOnlyChatUser: boolean}) => {
           onPress={() =>
             navigation.navigate('MainScreen', {isOnlyChatUsers: true})
           }
-          icon={<SvgIcons.chat width={30} height={30} />}
+          icon={
+            <SvgIcons.chat
+              width={isOnlyChatUser ? 40 : 30}
+              height={isOnlyChatUser ? 40 : 30}
+            />
+          }
           _icon={{color: theme.colors.onPrimary}}
         />
       </Pressable>
       <Pressable>
         <IconButton
           onPress={handleLogout}
-          icon={
-            <SvgIcons.logout
-              width={isOnlyChatUser ? 40 : 30}
-              height={isOnlyChatUser ? 40 : 30}
-            />
-          }
+          icon={<SvgIcons.logout width={30} height={30} />}
           _icon={{color: theme.colors.onPrimary}}
         />
       </Pressable>

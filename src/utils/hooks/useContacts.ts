@@ -39,7 +39,19 @@ export const useContacts = (isOnlyChatUsers?: boolean) => {
                 return contact;
               }
             });
-            setContacts(filteredContacts);
+            setContacts(
+              filteredContacts.filter(contact => {
+                const mapNumbers = contact.phoneNumbers.map(num =>
+                  num.number.replace(/\D/g, '').trim().slice(-10),
+                );
+                if (
+                  currentUser &&
+                  !mapNumbers.includes(currentUser?.mobile.slice(-10))
+                ) {
+                  return contact;
+                }
+              }),
+            );
           }
         } catch (error) {
           console.log(error);
@@ -55,7 +67,7 @@ export const useContacts = (isOnlyChatUsers?: boolean) => {
     };
 
     getContacts();
-  }, [isOnlyChatUsers]);
+  }, [currentUser?._id, isOnlyChatUsers]);
 
   const formatContacts = contacts.map(contact => {
     return {
